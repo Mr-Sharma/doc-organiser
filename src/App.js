@@ -1,17 +1,21 @@
 
 import React, { Component } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route,Routes} from "react-router-dom";
+import LoginPage from "./components/login"
+import AdminDashboard from "./admin"
+import OperatorDashboard from "./operator"
+import {BrowserRouter as Router, Route,Routes} from "react-router-dom";
 
 class App extends Component {
   render() {
     return (
       <Router>
           <Routes>
-            <Route exact path="/" element={<h1>Hello, world!</h1>} />
-            <Route exact path="/login" element={<h1>Login</h1>} />
-            <Route exact path="/:section" component={<h1>Dashboard</h1>} />
-            <Route exact path="/user/:section" component={<h1>userDashboard</h1>} />                    
+            <Route exact path="/" element={<LoginPage/>} />
+            <Route exact path="login" element={<LoginPage/>} />
+            <Route exact path="admin/*" element={<AdminDashboard/>} />
+            <Route exact path="operator/*" element={<OperatorDashboard/>} /> 
+            <Route path="*" element={<h1>Page not Found!!!</h1>} />                   
           </Routes>
       </Router>
     );

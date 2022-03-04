@@ -45,6 +45,11 @@ class AdminDashboard extends Component {
       this.setState({ sidebarOpen: !open,isSidebarOpen:false});
     }
   }
+  
+  logoutUser = () => {
+    sessionStorage.removeItem('userData');
+    this.context.history.push('/login');
+  }
 
   render() {
     return (
@@ -60,7 +65,7 @@ class AdminDashboard extends Component {
             <div className="search-part-wrapper">
               {/* <input className="search-input" type="text" placeholder="Search videos..." /> */}
               <span className="search-input"></span>
-              <a className="menu-links" href="#">
+              <a className="menu-links" href="#" onClick={this.logoutUser}>
                 <span className="sm:inline-flex xl:hidden cursor-pointer mr-1 feather-icon select-none relative purple-feather-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="feather feather-log-out">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -69,7 +74,7 @@ class AdminDashboard extends Component {
                   </svg>
                 </span>
               </a>
-              <a className="menu-links" href="#">Logout</a>
+              <a className="menu-links" href="#" onClick={this.logoutUser}>Logout</a>
             </div>
             {/* <button className="btn-notification">
               <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="#232428" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="feather feather-bell">

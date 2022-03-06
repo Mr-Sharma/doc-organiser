@@ -61,7 +61,7 @@ function LoginPage () {
               </div>
               <div className="card-input">
                 <label className="card-input__label">
-                  Username
+                  Password
                 </label>
                 <input type="password" className="card-input__input" name="password" value={password} onChange={handlePasswordChange} required autoFocus="" />
               </div>

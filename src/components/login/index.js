@@ -66,7 +66,7 @@ function LoginPage () {
                 <input type="password" className="card-input__input" name="password" value={password} onChange={handlePasswordChange} required autoFocus="" />
               </div>
               {showErrorMsg && <p style={{textAlign: 'center',color: '#ff5151', fontSize:14}}>{error}</p>}
-              <button className="doc-button">Submit</button>
+              <button className="doc-button" style={{width: '100%', padding: 16, fontSize: 16, fontWeight: 500, marginTop: 10}}>Submit</button>
             </div>
           </div>
         </div>

@@ -8,13 +8,33 @@ var pdf = require('html-pdf');
 
 
 module.exports = {
+  update:update,
   create: create,
   getAll:getAll,
   getCandidateById: getCandidateById,
   deleteCandidate:deleteCandidate
 }
 
-function create(data,callback){
+function create(data, callback){
+  var obj = {};
+  obj.name = data.body.name;
+  obj.aadhar = data.body.aadhar;
+  if(data.body.email) {
+    obj.email = data.body.email
+  }
+  if(data.body.phoneNumber) {
+    obj.phoneNumber = data.body.phoneNumber
+  }
+  Candidate.create(obj, function(err,res) {
+    if(err) {
+      callback(err,null)
+    } else {
+      callback(null,res)
+    }
+  })
+}
+
+function update(data,callback){
   var filename = uniqid();
   var storage =   multer.diskStorage({
     destination: function (req, file, callback) {

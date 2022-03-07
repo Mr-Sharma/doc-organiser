@@ -12,6 +12,17 @@ module.exports.create = function(req, res) {
 	});
 }
 
+module.exports.update = function(req, res) {
+	var data=req;
+	candidate.update(data,function(err,msg){
+		if(err){
+			res.status(constants.FOUR_HUNDRED).json({success:false,message:err});
+		}else{
+			res.status(constants.TWO_HUNDRED).json({success:true,message:msg});
+		}
+	});
+}
+
 module.exports.getAll = function(req, res) {
 	candidate.getAll(function(err,msg){
 		if(err){

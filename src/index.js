@@ -21,7 +21,7 @@ const options = {
 const LoadingIndicator = props => {
   const { promiseInProgress } = usePromiseTracker();
     return (
-      promiseInProgress && 
+      // promiseInProgress && 
      <div
      
      style={{

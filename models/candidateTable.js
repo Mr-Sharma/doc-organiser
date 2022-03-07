@@ -60,8 +60,10 @@ function uploadFile(data,callback){
       callback(err,null)
     } else {
       var filePath = '/uploads/documents/'+filename
-      data.file.destination = filePath;
-      data.file.path = filePath;
+      if(data.file && data.file.destination) {
+        data.file.destination = filePath;
+        data.file.path = filePath;
+      }
       var obj = {};
       if(data.body.answerSheetSkipped != undefined && (data.body.answerSheetSkipped == false || data.body.answerSheetSkipped == "false")) {
         obj.answerSheet = data.file;
@@ -78,7 +80,23 @@ function uploadFile(data,callback){
       } else if(data.body.certificateSkipped != undefined && (data.body.certificateSkipped == false || data.body.certificateSkipped == "false")) {
         obj.certificate = data.file;
         obj.certificateSkipped = false;
-      } else {
+      } 
+      if(data.body.answerSheetSkipped == true) {
+        obj.answerSheetSkipped = true;
+      }
+      if(data.body.pattingSheetSkipped == true) {
+        obj.pattingSheetSkipped = true;
+      }
+      if(data.body.cformSkipped == true) {
+        obj.cformSkipped = true;
+      }
+      if(data.body.markSheetSkipped == true) {
+        obj.markSheetSkipped = true;
+      }
+      if(data.body.markSheetSkipped == true) {
+        obj.markSheetSkipped = true;
+      }
+      if(!data.body || (data.body.answerSheetSkipped == undefined && data.body.pattingSheetSkipped == undefined && data.body.cformSkipped == undefined && data.body.markSheetSkipped == undefined && data.body.certificateSkipped == undefined)) {
         callback('nothing to update');
         return;
       }

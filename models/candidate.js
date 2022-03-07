@@ -23,6 +23,24 @@ var candidateSchema = new Schema({
     cform:{
         type: constants.ARRAY
     },
+    certificate:{
+        type: constants.ARRAY
+    },
+    answerSheetSkipped: {
+        type: constants.BOOLEAN
+    },
+    pattingSheetSkipped: {
+        type: constants.BOOLEAN
+    },
+    cformSkipped: {
+        type: constants.BOOLEAN
+    },
+    markSheetSkipped: {
+        type: constants.BOOLEAN
+    },
+    certificateSkipped: {
+        type: constants.BOOLEAN
+    },
     email: {
         type: constants.STRING
     },

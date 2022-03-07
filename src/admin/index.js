@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import "./admin.css";
+import "./admin.scss";
 import UserPage from "../components/users"
 import { Route,Routes} from "react-router-dom";
 import Sidebar from "react-sidebar";

@@ -10,6 +10,7 @@ var pdf = require('html-pdf');
 module.exports = {
   update:update,
   create: create,
+  uploadFile:uploadFile,
   getAll:getAll,
   getCandidateById: getCandidateById,
   deleteCandidate:deleteCandidate
@@ -17,14 +18,8 @@ module.exports = {
 
 function create(data, callback){
   var obj = {};
-  obj.name = data.body.name;
-  obj.aadhar = data.body.aadhar;
-  if(data.body.email) {
-    obj.email = data.body.email
-  }
-  if(data.body.phoneNumber) {
-    obj.phoneNumber = data.body.phoneNumber
-  }
+  obj.name = data.name;
+  obj.aadhar = data.aadhar;
   Candidate.create(obj, function(err,res) {
     if(err) {
       callback(err,null)
@@ -34,7 +29,20 @@ function create(data, callback){
   })
 }
 
-function update(data,callback){
+function update(data, callback){
+  var obj = {};
+  obj.name = data.name;
+  obj.aadhar = data.aadhar;
+  Candidate.findOneAndUpdate({_id: data._id}, {$set:obj}, {new: true}, function(err,res) {
+    if(err) {
+      callback(err,null)
+    } else {
+      callback(null,res)
+    }
+  })
+}
+
+function uploadFile(data,callback){
   var filename = uniqid();
   var storage =   multer.diskStorage({
     destination: function (req, file, callback) {
@@ -46,7 +54,7 @@ function update(data,callback){
   });
 
   
-  var upload = multer({ storage : storage}).single('answerSheet');
+  var upload = multer({ storage : storage}).single('file');
   upload(data,callback,function(err) {
     if(err) {
       callback(err,null)
@@ -55,16 +63,26 @@ function update(data,callback){
       data.file.destination = filePath;
       data.file.path = filePath;
       var obj = {};
-      obj.name = data.body.name;
-      obj.aadhar = data.body.aadhar;
-      obj.answerSheet = data.file;
-      if(data.body.email) {
-        obj.email = data.body.email
+      if(data.body.answerSheetSkipped != undefined && (data.body.answerSheetSkipped == false || data.body.answerSheetSkipped == "false")) {
+        obj.answerSheet = data.file;
+        obj.answerSheetSkipped = false;
+      } else if(data.body.pattingSheetSkipped != undefined && (data.body.pattingSheetSkipped == false || data.body.pattingSheetSkipped == "false")) {
+        obj.pattingSheet = data.file;
+        obj.pattingSheetSkipped = false;
+      } else if(data.body.cformSkipped != undefined && (data.body.cformSkipped == false || data.body.cformSkipped == "false")) {
+        obj.cform = data.file;
+        obj.cformSkipped = false;
+      } else if(data.body.markSheetSkipped != undefined && (data.body.markSheetSkipped == false || data.body.markSheetSkipped == "false")) {
+        obj.markSheet = data.file;
+        obj.markSheetSkipped = false;
+      } else if(data.body.certificateSkipped != undefined && (data.body.certificateSkipped == false || data.body.certificateSkipped == "false")) {
+        obj.certificate = data.file;
+        obj.certificateSkipped = false;
+      } else {
+        callback('nothing to update');
+        return;
       }
-      if(data.body.phoneNumber) {
-        obj.phoneNumber = data.body.phoneNumber
-      }
-      Candidate.create(obj, function(err,res) {
+      Candidate.findOneAndUpdate({_id: data.body._id}, {$set: obj}, {new: true}, function(err,res) {
         if(err) {
           callback(err,null)
         } else {

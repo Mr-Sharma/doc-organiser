@@ -1,14 +1,16 @@
 import React, {useEffect ,useState } from 'react';
-import './user.css';
+import './user.scss';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 function UserPage (props) {
   const [candidates, setCandidates] = useState([]);
+  const [selectedCandidate, setSelectedCandidate] = useState({});
   const [username, setUsername] = useState("");
   const [aadhar, setAadhar] = useState("");
   const [error, setError] = useState("");
   const [showErrorMsg, setShowErrorMsg] = useState(false);
+  const [popupType, setPopupType] = useState("create");
   const history = useNavigate();
 
   useEffect(()=>{
@@ -34,6 +36,13 @@ function UserPage (props) {
     document.getElementById('createCandidatePopup').style.display = 'none';
   }
 
+  const handleCreate = () => {
+    setUsername('');
+    setAadhar('');
+    setPopupType('create');
+    openPopup();
+  }
+
   const handleUsernameChange=(e)=>{
     setUsername(e.target.value);
     setShowErrorMsg(false);
@@ -46,20 +55,54 @@ function UserPage (props) {
   
   const handleSubmit = (e) => {
     e.preventDefault()
-    if(username!=='' && username!==undefined && aadhar!=='' && aadhar!==undefined){
-      const formData = new FormData();
-      const configuration = { headers: { "Content-Type": "multipart/form-data" } };
-      formData.append('name', username);
-      formData.append('aadhar', aadhar);
+    if(popupType == 'create' && username!=='' && username!==undefined && aadhar!=='' && aadhar!==undefined){
+      var obj = {};
+      obj.name = username;
+      obj.aadhar  = aadhar;
       axios
-      .put("/api/candidate/create", formData, configuration)
+      .post("/api/candidate/create", obj)
       .then(response => {
-        console.log("response", response);
-        if(!response.data.message.success){
+        if(!response.data.success){
           setError('Name or aadhar is missing!');
           setShowErrorMsg(true);
         } else {
-          hidePopUp()
+          setShowErrorMsg(false);
+          getCandidates()
+          hidePopUp();
+        }
+      })
+      .catch(error => {      
+        console.log("failed", error);
+      });
+    } else if(popupType == 'edit') {
+      updateCandidate()
+    }
+  }
+
+  const handleEdit = (candidate) => {
+    setSelectedCandidate(candidate)
+    setUsername(candidate.name);
+    setAadhar(candidate.aadhar);
+    setPopupType('edit');
+    openPopup()
+  }
+
+  const updateCandidate = async () => {
+    if(username!=='' && username!==undefined && aadhar!=='' && aadhar!==undefined){
+      var obj = {};
+      obj.name = username;
+      obj.aadhar  = aadhar;
+      obj._id = selectedCandidate._id
+      axios
+      .put("/api/candidate/update", obj)
+      .then(response => {
+        if(!response.data.success){
+          setError('Name or aadhar is missing!');
+          setShowErrorMsg(true);
+        } else {
+          setShowErrorMsg(false);
+          getCandidates()
+          hidePopUp();
         }
       })
       .catch(error => {      
@@ -73,7 +116,7 @@ function UserPage (props) {
       <div className='doc-card'>
         <div className="doc-card__header">
           <p>Candidates List</p>
-          <button className='doc-button' onClick={openPopup}>Create</button>
+          <button className='doc-button' onClick={handleCreate}>Create</button>
         </div>
         <div className='doc-card__body'>
           <table className='doc-table'>
@@ -85,6 +128,7 @@ function UserPage (props) {
                 <th>Answer Sheet</th>
                 <th>Patting Sheet</th>
                 <th>C Form</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -100,6 +144,9 @@ function UserPage (props) {
                 </td>
                 <td>
                   <span className='view-button2'>view</span>
+                </td>
+                <td>
+                  <span className='view-button2' onClick={()=>handleEdit(candidate)}>Edit</span>
                 </td>
               </tr>))}
             </tbody>
@@ -146,8 +193,8 @@ function UserPage (props) {
                   </div>
                   {showErrorMsg && <p style={{textAlign: 'center',color: '#ff5151', fontSize:14}}>{error}</p>}
                   <div style={{textAlign:'right'}}>
-                    <button className='doc-button doc-button-cancel' onClick={hidePopUp}>Cancel</button>  
-                    <button className='doc-button' style={{marginLeft:10}} onClick={openPopup}>Create</button> 
+                    <button className='doc-button doc-button-cancel' type='button' onClick={hidePopUp}>Cancel</button>  
+                    <button className='doc-button' type='submit' style={{marginLeft:10}} onClick={openPopup}>Create</button> 
                   </div>
                 </div>
               </form>

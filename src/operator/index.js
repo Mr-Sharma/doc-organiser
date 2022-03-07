@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./operator.css";
-import OperatorUserPage from "../components/operatorUsers"
+import OperatorUserPage from "../components/operatorUsers";
+import OperatorUploadPage from "../components/operatorUpload";
 import {Route,Routes} from "react-router-dom";
 import Sidebar from "react-sidebar";
 import SidebarContent from './operatorSidebar';
@@ -48,18 +49,18 @@ class OperatorDashboard extends Component {
   render() {
     return (
       <div>
-        <Sidebar  sidebar={<SidebarContent />} open={this.state.sidebarOpen} docked={this.state.sidebarDocked} onSetOpen={this.onSetSidebarOpen} styles={{ sidebar: { background: "white" } }} shadow={false} defaultSidebarWidth={200}>
+        <Sidebar  sidebar={<SidebarContent />} open={this.state.sidebarOpen} docked={this.state.sidebarDocked} onSetOpen={this.onSetSidebarOpen} shadow={false} defaultSidebarWidth={230}>
           <div className="right-area-upper">
-            <button className="menu-button" onClick={this.toggleSidebar}>
+            {/* <button className="menu-button" onClick={this.toggleSidebar}>
               <svg width={24} height={24} fill="none" stroke="#51a380" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
                 <defs />
                 <path d="M3 12h18M3 6h18M3 18h18" />
               </svg>
-            </button>
+            </button> */}
             <div className="search-part-wrapper">
-              {/* <input className="search-input" type="text" placeholder="Search videos..." /> */}
+              <p className="search-input">Dashboard</p>
               <span className="search-input"></span>
-              <a className="menu-links" href="#">
+              <a className="menu-links" href="#" onClick={this.logoutUser}>
                 <span className="sm:inline-flex xl:hidden cursor-pointer mr-1 feather-icon select-none relative purple-feather-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="feather feather-log-out">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -68,7 +69,7 @@ class OperatorDashboard extends Component {
                   </svg>
                 </span>
               </a>
-              <a className="menu-links" href="#">Logout</a>
+              <a className="menu-links" href="#" onClick={this.logoutUser}>Logout</a>
             </div>
             {/* <button className="btn-notification">
               <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="#232428" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="feather feather-bell">
@@ -79,7 +80,8 @@ class OperatorDashboard extends Component {
           </div>
           <div className="content-wrap" style={{padding:'0 20px'}}>
             <Routes>
-            <Route  path="users" element={<OperatorUserPage/>} /> 
+            <Route  path="users" element={<OperatorUserPage/>} />
+            <Route  path="upload" element={<OperatorUploadPage/>} /> 
             <Route path="*" element={<h1>Page not Found!!!</h1>} />  
             </Routes>
           </div>

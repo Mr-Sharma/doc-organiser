@@ -36,7 +36,11 @@ function LoginPage () {
           setShowErrorMsg(true);
         } else {
           sessionStorage.setItem('userData',JSON.stringify(response.data.message.res));
-          history('/admin/users')
+          if(response.data.message.res.type == 0) {
+            history('/admin/users')
+          } else if (response.data.message.res.type == 1) {
+            history('/operator/upload')  
+          }
         }
       })
       .catch(error => {      

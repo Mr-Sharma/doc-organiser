@@ -6,6 +6,7 @@ import AdminDashboard from "./admin"
 import OperatorDashboard from "./operator"
 import {BrowserRouter as Router, Route,Routes} from "react-router-dom";
 
+
 class App extends Component {
   render() {
     return (

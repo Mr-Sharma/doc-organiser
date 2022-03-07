@@ -2,6 +2,8 @@ import React, {useEffect ,useState } from 'react';
 import './user.scss';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { trackPromise } from 'react-promise-tracker';
+import { useAlert } from 'react-alert'
 
 function UserPage (props) {
   const [candidates, setCandidates] = useState([]);
@@ -17,14 +19,18 @@ function UserPage (props) {
     getCandidates()
   }, []);
 
+  const alert = useAlert()
+
   const getCandidates = async () => {
     try {
-      let response = await axios.get('/api/candidate/get');
+      let response = await trackPromise(axios.get('/api/candidate/get'));
       console.log("getCandidates",response);
+      // alert.success('Oh look, an alert!')
       setCandidates(response.data.message || []);
     } catch (err) {
       console.log("error",err);
       setCandidates([])
+      alert.error("error in fetching candidates")
     }
   }
 
@@ -64,8 +70,10 @@ function UserPage (props) {
       .then(response => {
         if(!response.data.success){
           setError('Name or aadhar is missing!');
+          alert.error("error in updating candidate")
           setShowErrorMsg(true);
         } else {
+          alert.success("candidate created successfully")
           setShowErrorMsg(false);
           getCandidates()
           hidePopUp();
@@ -98,8 +106,10 @@ function UserPage (props) {
       .then(response => {
         if(!response.data.success){
           setError('Name or aadhar is missing!');
+          alert.error("error in updating candidate")
           setShowErrorMsg(true);
         } else {
+          alert.success("candidate updated successfully")
           setShowErrorMsg(false);
           getCandidates()
           hidePopUp();

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { useAlert } from 'react-alert'
 import { trackPromise } from 'react-promise-tracker';
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 
 function OperatorUserPage (props) {
   const [candidates, setCandidates] = useState([]);
@@ -13,6 +14,10 @@ function OperatorUserPage (props) {
   const [error, setError] = useState("");
   const [showErrorMsg, setShowErrorMsg] = useState(false);
   const [popupType, setPopupType] = useState("create");
+  const [selectedDocument, setSelectedDocument] = useState(null);
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [showPDF, setShowPDF] = useState(false)
   const history = useNavigate();
   
 
@@ -43,89 +48,35 @@ function OperatorUserPage (props) {
   }
 
   const openPopup=()=> {
-    document.getElementById('createCandidatePopup').style.display = 'block';
+    document.getElementById('operatorDocumentPopup').style.display = 'block';
   }
 
   const hidePopUp=()=> {
-    document.getElementById('createCandidatePopup').style.display = 'none';
+    document.getElementById('operatorDocumentPopup').style.display = 'none';
   }
 
-  const handleCreate = () => {
-    setUsername('');
-    setAadhar('');
-    setPopupType('create');
-    openPopup();
+
+  const openDocument = (document) => {
+    console.log("DOCUMENT VIEW", document)
+    setSelectedDocument(document);
+    openPopup()
+    // setNumPages(null);
+    setPageNumber(1);
+    setShowPDF(true)
   }
 
-  const handleUsernameChange=(e)=>{
-    setUsername(e.target.value);
-    setShowErrorMsg(false);
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
   }
 
-  const handleAadharChange=(e)=>{
-    setAadhar(e.target.value);
-    setShowErrorMsg(false);
-  }
-  
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if(popupType == 'create' && username!=='' && username!==undefined && aadhar!=='' && aadhar!==undefined){
-      var obj = {};
-      obj.name = username;
-      obj.aadhar  = aadhar;
-      trackPromise(axios
-      .post("/api/candidate/create", obj)
-      .then(response => {
-        if(!response.data.success){
-          alert.error("candidate creation failed")
-          setError('Name or aadhar is missing!');
-          setShowErrorMsg(true);
-        } else {
-          alert.success("candidate created successfully")
-          setShowErrorMsg(false);
-          getCandidates()
-          hidePopUp();
-        }
-      })
-      .catch(error => {      
-        console.log("failed", error);
-      }));
-    } else if(popupType == 'edit') {
-      updateCandidate()
+  const handleBack = () => {
+    if(pageNumber>1) {
+      setPageNumber(pageNumber-1)
     }
   }
-
-  const handleEdit = (candidate) => {
-    setSelectedCandidate(candidate)
-    setUsername(candidate.name);
-    setAadhar(candidate.aadhar);
-    setPopupType('edit');
-    openPopup()
-  }
-
-  const updateCandidate = async () => {
-    if(username!=='' && username!==undefined && aadhar!=='' && aadhar!==undefined){
-      var obj = {};
-      obj.name = username;
-      obj.aadhar  = aadhar;
-      obj._id = selectedCandidate._id
-      axios
-      .put("/api/candidate/update", obj)
-      .then(response => {
-        if(!response.data.success){
-          alert.error("candidate update failed")
-          setError('Name or aadhar is missing!');
-          setShowErrorMsg(true);
-        } else {
-          alert.success("candidate updated successfully")
-          setShowErrorMsg(false);
-          getCandidates()
-          hidePopUp();
-        }
-      })
-      .catch(error => {      
-        console.log("failed", error);
-      });
+  const handleNext = () => {
+    if(pageNumber<numPages) {
+      setPageNumber(pageNumber+1)
     }
   }
 
@@ -145,7 +96,9 @@ function OperatorUserPage (props) {
                 <th>Answer Sheet</th>
                 <th>Patting Sheet</th>
                 <th>C Form</th>
-                <th>Actions</th>
+                <th>Marks Card</th>
+                <th>Certificate</th>
+                {/* <th>Actions</th> */}
               </tr>
             </thead>
             <tbody>
@@ -154,30 +107,39 @@ function OperatorUserPage (props) {
                 <td>{candidate.name}</td>
                 <td>{candidate.aadhar}</td>
                 <td>
-                  <span className='view-button'>view</span>
+                  {!candidate.answerSheetSkipped && (candidate.answerSheet && candidate.answerSheet.length>0) ? <span className='view-button' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.answerSheet[0])}>view</span>
+                  :<span>Skipped</span>}
                 </td>
                 <td>
-                  <span className='view-button1'>view</span>
+                {!candidate.pattingSheetSkipped && (candidate.pattingSheet && candidate.pattingSheet.length>0) ? <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.pattingSheet[0])}>view</span>
+                  :<span>Skipped</span>}
                 </td>
                 <td>
-                  <span className='view-button2'>view</span>
+                {!candidate.cformSkipped && (candidate.cform && candidate.cform.length>0) ? <span className='view-button2' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.cform[0])}>view</span>
+                  :<span>Skipped</span>}
                 </td>
                 <td>
+                  {!candidate.markSheetSkipped && (candidate.markSheet && candidate.markSheet.length>0) ? <span className='view-button' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.markSheet[0])}>view</span>
+                  :<span>Skipped</span>}
+                </td>
+                <td>
+                  {!candidate.certificateSkipped && (candidate.certificate && candidate.certificate.length>0) ? <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.answerSheet)}>view</span>
+                  :<span>Skipped</span>}
+                </td>
+                {/* <td>
                   <span className='view-button2' onClick={()=>handleEdit(candidate)}>Edit</span>
-                </td>
+                </td> */}
               </tr>))}
             </tbody>
           </table>  
         </div>
       </div>
-       {/*popup to delete course*/}
-       <div id="createCandidatePopup" className="nj-overly add-rebound-animation" >
-          <div className="doc-popup my-popup">
-            <div className="doc-popup-form">
-              <form onSubmit={handleSubmit}>
+      {/*popup to delete course*/}
+      <div id="operatorDocumentPopup" className="nj-overly add-rebound-animation" >
+          <div className="doc-popup my-popup" style={{maxWidth:900}}>
+            <div className="doc-popup-form" style={{maxWidth:900, overflow:'auto'}}>
                 <div className="doc-popup-form__inner">
                   <div className="doc-popup-title">
-                    <span>Create Candidate</span>
                     <span onClick={hidePopUp} className="doc-popup__close">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -196,25 +158,21 @@ function OperatorUserPage (props) {
                       </svg>  
                     </span>
                   </div>
-                  <div className="doc-popup-form-input-wrap">
-                    <label className="doc-popup-form__label">
-                      Name
-                    </label>
-                    <input type="text" className="doc-popup-form__input" name="username" value={username} onChange={handleUsernameChange} placeholder="Name" required autoFocus="" />
-                  </div>
-                  <div className="doc-popup-form-input-wrap">
-                    <label className="doc-popup-form__label">
-                      Aadhar
-                    </label>
-                    <input type="text" className="doc-popup-form__input" name="aadhar" value={aadhar} onChange={handleAadharChange} placeholder="Aadhar card no." required autoFocus="" />
-                  </div>
-                  {showErrorMsg && <p style={{textAlign: 'center',color: '#ff5151', fontSize:14}}>{error}</p>}
-                  <div style={{textAlign:'right'}}>
-                    <button className='doc-button doc-button-cancel' type='button' onClick={hidePopUp}>Cancel</button>  
-                    <button className='doc-button' type='submit' style={{marginLeft:10}} onClick={openPopup}>Create</button> 
+                  {showPDF && <div style={{maxHeight:'74vh', overflow:'auto', display: 'flex',flexDirection: 'column',alignItems: 'center'}}>
+                    <Document file={selectedDocument.path} onLoadSuccess={onDocumentLoadSuccess}>
+                      <Page pageNumber={pageNumber} />
+                    </Document>
+                  </div>}
+                  <div>
+                    <p style={{textAlign:'center'}}>
+                      Page {pageNumber} of {numPages}
+                    </p>
+                    <div style={{textAlign:'center'}}>
+                      <span className='view-button' style={{cursor:'pointer', marginRight:8}} onClick={handleBack}>Back</span>
+                      <span className='view-button' style={{cursor:'pointer'}} onClick={handleNext}>Next</span>
+                    </div>
                   </div>
                 </div>
-              </form>
             </div>   
           </div>
         </div>

@@ -81,20 +81,25 @@ function uploadFile(data,callback){
         obj.certificate = data.file;
         obj.certificateSkipped = false;
       } 
-      if(data.body.answerSheetSkipped == true) {
+      if(data.body.answerSheetSkipped == true || data.body.answerSheetSkipped == 'true') {
         obj.answerSheetSkipped = true;
+        obj.answerSheet = [];
       }
-      if(data.body.pattingSheetSkipped == true) {
+      if(data.body.pattingSheetSkipped == true || data.body.pattingSheetSkipped == 'true') {
         obj.pattingSheetSkipped = true;
+        obj.filpattingSheete = [];
       }
-      if(data.body.cformSkipped == true) {
+      if(data.body.cformSkipped == true || data.body.cformSkipped == 'true') {
         obj.cformSkipped = true;
+        obj.cform = [];
       }
-      if(data.body.markSheetSkipped == true) {
+      if(data.body.markSheetSkipped == true || data.body.markSheetSkipped == 'true') {
         obj.markSheetSkipped = true;
+        obj.markSheet = [];
       }
-      if(data.body.markSheetSkipped == true) {
-        obj.markSheetSkipped = true;
+      if(data.body.certificateSkipped == true || data.body.certificateSkipped == 'true') {
+        obj.certificateSkipped = true;
+        obj.certificate = [];
       }
       if(!data.body || (data.body.answerSheetSkipped == undefined && data.body.pattingSheetSkipped == undefined && data.body.cformSkipped == undefined && data.body.markSheetSkipped == undefined && data.body.certificateSkipped == undefined)) {
         callback('nothing to update');

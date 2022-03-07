@@ -34,7 +34,6 @@ const LoadingIndicator = props => {
     return (
       promiseInProgress &&
       <SpinnerComponent loading={true} position="global" />
-   
    );  
   }
 

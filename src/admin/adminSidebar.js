@@ -9,9 +9,9 @@ class AdminSidebar extends Component {
           {/**/}
             <div className="app-header">
                 <span>
-                <img src={require('../govt.png')} width="100%"/>
+                <img src={require('../govt1.png')} width="100%"/>
                 </span>
-                <span style={{alignContent:"center"}}>
+                <span style={{textAlign:"center"}}>
                 DocOrganizer</span>
               {/* <button className="close-menu">
                 <svg width={24} height={24} fill="none" stroke="#51a380" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="feather feather-x">

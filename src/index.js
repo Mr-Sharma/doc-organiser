@@ -8,6 +8,15 @@ import {InfinitySpin} from 'react-loader-spinner';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
 
+
+
+import { SpinnerComponent } from 'react-element-spinner';
+ 
+
+
+
+
+
 // optional configuration
 const options = {
   // you can also just use 'bottom center'
@@ -18,33 +27,33 @@ const options = {
   transition: transitions.SCALE
 }
 
+
+
 const LoadingIndicator = props => {
   const { promiseInProgress } = usePromiseTracker();
     return (
-      // promiseInProgress && 
-     <div
-     
-     style={{
-            width: "100%",
-             height: "100",
-             display: "flex",
-             marginTop:"25%",
-            justifyContent: "center",
-            alignItems: "center"
-           }}
-    >
-     <InfinitySpin color="#2152ffad" height="200" width="200" timeout='3000'/>
-  </div>
+      promiseInProgress &&
+      <SpinnerComponent loading={true} position="global" />
+   
    );  
   }
 
 ReactDOM.render(
   <React.StrictMode>
+    
+    
+      
+    
+    <LoadingIndicator/> 
+    
     <AlertProvider template={AlertTemplate} {...options}>
+    
     <App />
+    
     </AlertProvider>
     
-    <LoadingIndicator/>
+    
+    
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -54,6 +54,7 @@ function LoginPage () {
       <div className="login-wrapper">
           <div className="card-form">
             <div className="card-form__inner">
+            <img src={require('../../govt1.png')} width="100%"/>
               <div className="card-title">
                 Login
               </div>

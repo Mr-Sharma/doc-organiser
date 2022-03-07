@@ -9,7 +9,7 @@ class AdminSidebar extends Component {
           {/**/}
             <div className="app-header">
                 <span>
-                  <svg
+                  {/* <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width={20}
                     height={24}
@@ -23,7 +23,10 @@ class AdminSidebar extends Component {
                   >
                     <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
                     <polyline points="13 2 13 9 20 9" />
-                  </svg>
+                  </svg> */}
+                </span>
+                <span>
+                <img src={require('../govt1.png')} width="100%"/>
                 </span>
                 <span className="inner-text">
                 DocOrganizer</span>

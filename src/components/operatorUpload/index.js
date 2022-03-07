@@ -2,6 +2,8 @@ import React, {useEffect ,useState } from 'react';
 import './operatorUpload.scss';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { useAlert } from 'react-alert'
+import { trackPromise } from 'react-promise-tracker';
 
 function OperatorUpload (props) {
   const [candidates, setCandidates] = useState([]);
@@ -27,9 +29,11 @@ function OperatorUpload (props) {
     getCandidates()
   }, []);
 
+  const alert = useAlert()
+
   const getCandidates = async () => {
     try {
-      let response = await axios.get('/api/candidate/get');
+      let response = await trackPromise(axios.get('/api/candidate/get'));
       console.log("getCandidates",response);
       var userList = response.data.message || [];
       setCandidates(userList);
@@ -107,7 +111,7 @@ function OperatorUpload (props) {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if(answerSheetSkipped == "mandatory" && answerSheetFile == null) {
       return
@@ -186,23 +190,28 @@ function OperatorUpload (props) {
       // promises.push(axios.put("/api/candidate/upload", certificateFormData, configuration));
       promises.push(apiCall(certificateFormData));
     }
-    if(answerSheetFile != null && pattingSheetFile != null && cformFile != null && markSheetFile != null && certificateFile != null){
-      axios.all(promises).then(function(response) {
+    // if(answerSheetFile != null && pattingSheetFile != null && cformFile != null && markSheetFile != null && certificateFile != null){
+      await Promise.all(promises).then(function(response) {
         console.log("INSIDE PROMISES", response);
+        alert.success("Data uploaded successfully")
       }, function(error) {
         console.log("Error PROMISES", error)
+        alert.error("Data upload failed")
       });
-    }
+    // }
   }
 
-  const apiCall = (body) => {
+  const apiCall = async (body) => {
     console.log("BODY",body);
     const configuration = { headers: { "Content-Type": "multipart/form-data" } };
-    axios.put("/api/candidate/upload", body, configuration).then(function(response) {
-      console.log("response", response);
-    }, function(error) {
-      console.log("Error", error)
-    });
+    return await trackPromise(axios.put("/api/candidate/upload", body, configuration))
+    // .then(function(response) {
+    //   console.log("response", response);
+    //   alert.success("Data uploaded successfully")
+    // }, function(error) {
+    //   console.log("Error", error)
+    //   alert.error("Data upload failed")
+    // }));
   }
 
   return (

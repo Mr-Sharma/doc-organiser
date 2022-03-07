@@ -2,6 +2,8 @@ import React, {useEffect ,useState } from 'react';
 import './operatorUser.scss';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { useAlert } from 'react-alert'
+import { trackPromise } from 'react-promise-tracker';
 
 function OperatorUserPage (props) {
   const [candidates, setCandidates] = useState([]);
@@ -12,14 +14,17 @@ function OperatorUserPage (props) {
   const [showErrorMsg, setShowErrorMsg] = useState(false);
   const [popupType, setPopupType] = useState("create");
   const history = useNavigate();
+  
 
   useEffect(()=>{
     getCandidates()
   }, []);
 
+  const alert = useAlert()
+
   const getCandidates = async () => {
     try {
-      let response = await axios.get('/api/candidate/get');
+      let response = await trackPromise(axios.get('/api/candidate/get'));
       console.log("getCandidates",response);
       var userList = response.data.message || [];
       var finalList = [];
@@ -68,13 +73,15 @@ function OperatorUserPage (props) {
       var obj = {};
       obj.name = username;
       obj.aadhar  = aadhar;
-      axios
+      trackPromise(axios
       .post("/api/candidate/create", obj)
       .then(response => {
         if(!response.data.success){
+          alert.error("candidate creation failed")
           setError('Name or aadhar is missing!');
           setShowErrorMsg(true);
         } else {
+          alert.success("candidate created successfully")
           setShowErrorMsg(false);
           getCandidates()
           hidePopUp();
@@ -82,7 +89,7 @@ function OperatorUserPage (props) {
       })
       .catch(error => {      
         console.log("failed", error);
-      });
+      }));
     } else if(popupType == 'edit') {
       updateCandidate()
     }
@@ -106,9 +113,11 @@ function OperatorUserPage (props) {
       .put("/api/candidate/update", obj)
       .then(response => {
         if(!response.data.success){
+          alert.error("candidate update failed")
           setError('Name or aadhar is missing!');
           setShowErrorMsg(true);
         } else {
+          alert.success("candidate updated successfully")
           setShowErrorMsg(false);
           getCandidates()
           hidePopUp();

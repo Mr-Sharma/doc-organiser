@@ -54,16 +54,16 @@ class AdminDashboard extends Component {
   render() {
     return (
       <div>
-        <Sidebar  sidebar={<SidebarContent />} open={this.state.sidebarOpen} docked={this.state.sidebarDocked} onSetOpen={this.onSetSidebarOpen} styles={{ sidebar: { background: "white" } }} shadow={false} defaultSidebarWidth={230}>
+        <Sidebar  sidebar={<SidebarContent />} open={this.state.sidebarOpen} docked={this.state.sidebarDocked} onSetOpen={this.onSetSidebarOpen} shadow={false} defaultSidebarWidth={230}>
           <div className="right-area-upper">
-            <button className="menu-button" onClick={this.toggleSidebar}>
+            {/* <button className="menu-button" onClick={this.toggleSidebar}>
               <svg width={24} height={24} fill="none" stroke="#51a380" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
                 <defs />
                 <path d="M3 12h18M3 6h18M3 18h18" />
               </svg>
-            </button>
+            </button> */}
             <div className="search-part-wrapper">
-              {/* <input className="search-input" type="text" placeholder="Search videos..." /> */}
+              <p className="search-input">Candidates</p>
               <span className="search-input"></span>
               <a className="menu-links" href="#" onClick={this.logoutUser}>
                 <span className="sm:inline-flex xl:hidden cursor-pointer mr-1 feather-icon select-none relative purple-feather-icon">

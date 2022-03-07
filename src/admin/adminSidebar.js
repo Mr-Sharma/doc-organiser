@@ -6,23 +6,41 @@ class AdminSidebar extends Component {
   render() {
     return (
       <div className="left-area">
-        <div className="left-area ">
           {/**/}
-            <div className="app-header">Video.
-              <span className="inner-text">ply</span>
-              <button className="close-menu">
+            <div className="app-header">
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={20}
+                    height={24}
+                    viewBox="0 0 24 18"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-file"
+                  >
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+                    <polyline points="13 2 13 9 20 9" />
+                  </svg>
+                </span>
+                <span className="inner-text">
+                DocOrganizer</span>
+              {/* <button className="close-menu">
                 <svg width={24} height={24} fill="none" stroke="#51a380" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} className="feather feather-x">
                   <defs />
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
-              </button>
+              </button> */}
             </div>
+            <hr></hr>
           <div className="left-area-content">
-            <div className="profile">
-                <img src="https://images.unsplash.com/photo-1496340672773-0b29c9b17ed2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="" />
+            <div className="profile-wrap">
+                <img src="https://cdn.dribbble.com/users/882393/screenshots/5745778/media/677aee7c4387cd5e87e00d16613822f6.jpg" alt="A" />
                 <div className="profile-info">
-                    <span className="profile-name">Michealla Cruz</span>
-                    <span className="country">Country</span>
+                    <span className="profile-name">Admin</span>
+                    <span className="country">System Admin</span>
                 </div>
             </div>
             <div className="page-link-list">
@@ -42,7 +60,6 @@ class AdminSidebar extends Component {
               {/**/}
             </div>
           </div>
-        </div>
       </div>
     );
   }

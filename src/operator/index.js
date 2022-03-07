@@ -48,7 +48,7 @@ class OperatorDashboard extends Component {
   render() {
     return (
       <div>
-        <Sidebar  sidebar={<SidebarContent />} open={this.state.sidebarOpen} docked={this.state.sidebarDocked} onSetOpen={this.onSetSidebarOpen} styles={{ sidebar: { background: "white" } }} shadow={false} defaultSidebarWidth={230}>
+        <Sidebar  sidebar={<SidebarContent />} open={this.state.sidebarOpen} docked={this.state.sidebarDocked} onSetOpen={this.onSetSidebarOpen} styles={{ sidebar: { background: "white" } }} shadow={false} defaultSidebarWidth={200}>
           <div className="right-area-upper">
             <button className="menu-button" onClick={this.toggleSidebar}>
               <svg width={24} height={24} fill="none" stroke="#51a380" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>

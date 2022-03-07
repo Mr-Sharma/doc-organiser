@@ -41,7 +41,7 @@ function create(data,callback){
       if(data.body.email) {
         obj.email = data.body.email
       }
-      if(data.body.email) {
+      if(data.body.phoneNumber) {
         obj.phoneNumber = data.body.phoneNumber
       }
       Candidate.create(obj, function(err,res) {

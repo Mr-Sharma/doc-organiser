@@ -4,7 +4,7 @@ var candidate = require('../controllers/candidateController');
 
 router
 	.route('/create')
-		.post(candidate.create)
+		.put(candidate.create)
 
 router	
 	.route('/get/')

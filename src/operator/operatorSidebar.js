@@ -18,11 +18,11 @@ class AdminSidebar extends Component {
               </button>
             </div>
           <div className="left-area-content">
-            <div className="profile">
-                <img src="https://images.unsplash.com/photo-1496340672773-0b29c9b17ed2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="" />
+            <div className="profile-wrap">
+                <img src="https://cdn.dribbble.com/users/882393/screenshots/5745778/media/677aee7c4387cd5e87e00d16613822f6.jpg" alt="D" />
                 <div className="profile-info">
-                    <span className="profile-name">Michealla Cruz</span>
-                    <span className="country">Country</span>
+                    <span className="profile-name">User</span>
+                    <span className="country">Data Entry</span>
                 </div>
             </div>
             <div className="page-link-list">

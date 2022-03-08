@@ -11,8 +11,8 @@ class AdminSidebar extends Component {
   }
 
   componentDidMount = () => {
-    const data = JSON.parse(sessionStorage.getItem('userData'));
-    this.setState({data, username: data.username});
+    const data = JSON.parse(sessionStorage.getItem('userData')) || {};
+    this.setState({userData:data, username: data.username || 'Admin'});
   }
   render() {
     return (

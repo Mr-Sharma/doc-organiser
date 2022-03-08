@@ -14,7 +14,8 @@ class AdminDashboard extends Component {
     this.state = {
       isSidebarOpen: true,
       sidebarDocked: mql.matches,
-      sidebarOpen: true
+      sidebarOpen: true,
+      userData:{}
     };
  
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
@@ -27,6 +28,15 @@ class AdminDashboard extends Component {
  
   componentWillUnmount() {
     this.state.mql.removeListener(this.mediaQueryChanged);
+  }
+
+  componentDidMount=()=> {
+    const data = JSON.parse(sessionStorage.getItem('userData'));
+    if(data) {
+      this.setState({userData:data});
+    } else {
+      this.logoutUser()
+    }
   }
  
   onSetSidebarOpen(open) {
@@ -48,7 +58,8 @@ class AdminDashboard extends Component {
   
   logoutUser = () => {
     sessionStorage.removeItem('userData');
-    this.context.history.push('/login');
+    // this.context.history.push('/login');
+    window.location.replace('/login');
   }
 
   render() {
@@ -65,7 +76,7 @@ class AdminDashboard extends Component {
             <div className="search-part-wrapper">
               <p className="search-input">Candidates</p>
               <span className="search-input"></span>
-              <a className="menu-links"  href="http://localhost:4000">
+              <a className="menu-links" href="#" onClick={this.logoutUser}>
                 <span className="sm:inline-flex xl:hidden cursor-pointer mr-1 feather-icon select-none relative purple-feather-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="feather feather-log-out">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -74,7 +85,7 @@ class AdminDashboard extends Component {
                   </svg>
                 </span>
               </a>
-              <a className="menu-links" href="http://localhost:4000"> Logout</a>
+              <a className="menu-links" href="#" onClick={this.logoutUser}> Logout</a>
             </div>
             {/* <button className="btn-notification">
               <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="#232428" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="feather feather-bell">

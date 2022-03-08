@@ -178,24 +178,29 @@ function UserPage (props) {
                 <td>{candidate.name}</td>
                 <td>{candidate.aadhar}</td>
                 <td>
-                  {!candidate.answerSheetSkipped && (candidate.answerSheet && candidate.answerSheet.length>0) ? <span className='view-button' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.answerSheet[0])}>view</span>
-                  :<span>Skipped</span>}
+                  {candidate.answerSheetSkipped != undefined && candidate.answerSheetSkipped == false && (candidate.answerSheet && candidate.answerSheet.length>0) && <span className='view-button' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.answerSheet[0])}>view</span>}
+                  {candidate.answerSheetSkipped && candidate.answerSheetSkipped == true && <span>Skipped</span>}
+                  {candidate.answerSheetSkipped == undefined && <span>-</span>}
                 </td>
                 <td>
-                {!candidate.pattingSheetSkipped && (candidate.pattingSheet && candidate.pattingSheet.length>0) ? <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.pattingSheet[0])}>view</span>
-                  :<span>Skipped</span>}
+                  {candidate.pattingSheetSkipped != undefined && candidate.pattingSheetSkipped == false && (candidate.pattingSheet && candidate.pattingSheet.length>0) && <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.pattingSheet[0])}>view</span>}
+                  {candidate.pattingSheetSkipped && candidate.pattingSheetSkipped == true && <span>Skipped</span>}
+                  {candidate.pattingSheetSkipped == undefined && <span>-</span>}
                 </td>
                 <td>
-                {!candidate.cformSkipped && (candidate.cform && candidate.cform.length>0) ? <span className='view-button2' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.cform[0])}>view</span>
-                  :<span>Skipped</span>}
+                  {candidate.cformSkipped != undefined && candidate.cformSkipped == false && (candidate.cform && candidate.cform.length>0) && <span className='view-button2' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.cform[0])}>view</span>}
+                  {candidate.cformSkipped && candidate.cformSkipped == true && <span>Skipped</span>}
+                  {candidate.cformSkipped == undefined && <span>-</span>}
                 </td>
                 <td>
-                  {!candidate.markSheetSkipped && (candidate.markSheet && candidate.markSheet.length>0) ? <span className='view-button' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.markSheet[0])}>view</span>
-                  :<span>Skipped</span>}
+                  {candidate.markSheetSkipped != undefined && candidate.markSheetSkipped == false && (candidate.markSheet && candidate.markSheet.length>0) && <span className='view-button' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.markSheet[0])}>view</span>}
+                  {candidate.markSheetSkipped && candidate.markSheetSkipped == true && <span>Skipped</span>}
+                  {candidate.markSheetSkipped == undefined && <span>-</span>}
                 </td>
                 <td>
-                  {!candidate.certificateSkipped && (candidate.certificate && candidate.certificate.length>0) ? <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.answerSheet)}>view</span>
-                  :<span>Skipped</span>}
+                  {candidate.certificateSkipped != undefined && candidate.certificateSkipped == false && (candidate.certificate && candidate.certificate.length>0) && <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.answerSheet)}>view</span>}
+                  {candidate.certificateSkipped && candidate.certificateSkipped == true && <span>Skipped</span>}
+                  {candidate.certificateSkipped == undefined && <span>-</span>}
                 </td>
                 <td>
                   <span className='view-button2' onClick={()=>handleEdit(candidate)}>Edit</span>

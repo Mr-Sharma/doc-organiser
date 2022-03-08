@@ -75,17 +75,7 @@ app.post('/upload', function (req, res) {
   res.sendFile(path.resolve('uploads/documents/'+req.params.fileName));
   });
 
-  app.get('/uploads/published-files/:fileName', function (req, res, next) {
-    //var origPath=req.params.
-    //res.send("hello"+__dirname)
-  res.sendFile(path.resolve('uploads/published-files/'+req.params.fileName));
-  });
-
-  app.get('/uploads/acknowledgement/acknowledgement-output/:fileName', function (req, res, next) {
-    //var origPath=req.params.
-    //res.send("hello"+__dirname)
-  res.sendFile(path.resolve('uploads/acknowledgement/acknowledgement-output/'+req.params.fileName));
-  });
+  
 
 app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname, 'build/index.html'), function(err) {

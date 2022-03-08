@@ -198,7 +198,7 @@ function UserPage (props) {
                   {candidate.markSheetSkipped == undefined && <span>-</span>}
                 </td>
                 <td>
-                  {candidate.certificateSkipped != undefined && candidate.certificateSkipped == false && (candidate.certificate && candidate.certificate.length>0) && <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.answerSheet)}>view</span>}
+                  {candidate.certificateSkipped != undefined && candidate.certificateSkipped == false && (candidate.certificate && candidate.certificate.length>0) && <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.certificate[0])}>view</span>}
                   {candidate.certificateSkipped && candidate.certificateSkipped == true && <span>Skipped</span>}
                   {candidate.certificateSkipped == undefined && <span>-</span>}
                 </td>

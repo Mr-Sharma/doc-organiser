@@ -194,6 +194,17 @@ function OperatorUpload (props) {
       await Promise.all(promises).then(function(response) {
         console.log("INSIDE PROMISES", response);
         alert.success("Data uploaded successfully")
+        document.getElementById("uploadFile").value=null;
+        setAnswerSheetSkipped('mandatory')
+        setPattingSheetSkipped('mandatory')
+        setCformSkipped('mandatory')
+        setCertificateSkipped('mandatory')
+        setMarkSheetSkipped('mandatory')
+        setAnswerSheetFile(null)
+        setPattingSheetFile(null)
+        setCformFile(null)
+        setCertificateFile(null)
+        setMarkSheetFile(null)
       }, function(error) {
         console.log("Error PROMISES", error)
         alert.error("Data upload failed")

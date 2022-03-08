@@ -8,6 +8,7 @@ import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 
 function OperatorUserPage (props) {
   const [candidates, setCandidates] = useState([]);
+  const [unfilteredCandidates, setUnfilteredCandidates] = useState([]);
   const [selectedCandidate, setSelectedCandidate] = useState({});
   const [username, setUsername] = useState("");
   const [aadhar, setAadhar] = useState("");
@@ -17,7 +18,8 @@ function OperatorUserPage (props) {
   const [selectedDocument, setSelectedDocument] = useState(null);
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
-  const [showPDF, setShowPDF] = useState(false)
+  const [showPDF, setShowPDF] = useState(false);
+  const [searchUser , setSearchValue] = useState("");
   const history = useNavigate();
   
 
@@ -41,9 +43,11 @@ function OperatorUserPage (props) {
         }
       }
       setCandidates(finalList);
+      setUnfilteredCandidates(finalList);
     } catch (err) {
       console.log("error",err);
       setCandidates([])
+      setUnfilteredCandidates([]);
     }
   }
 
@@ -79,13 +83,31 @@ function OperatorUserPage (props) {
     }
   }
 
+  var handleSearchChange = (e) => {
+    setSearchValue(e.target.value);
+    var data = e.target.value;
+    if( data && data !== ""){
+      var searchedArray=unfilteredCandidates.filter(el =>{
+        if(el.aadhar!==undefined){
+          return el.aadhar.toLowerCase().indexOf(data.toString().toLowerCase()) !== -1;
+        }
+      })
+      setCandidates(searchedArray)
+    } else {
+      setCandidates(unfilteredCandidates)
+    }
+  }
+
   return (
     <div>
       <div className='doc-card'>
         <div className="doc-card__header">
           <p>Documents</p>
         </div>
-        <div className='doc-card__body'>
+        <div className="doc-card__header" style={{margin:0, padding:'0 24px'}}>
+          <input style={{height:36}} className="doc-popup-form__input" type="text" name="searchUser" value={searchUser} onChange={handleSearchChange} placeholder="Search by aadhar" autoComplete="off" />
+        </div>
+        {candidates && candidates.length>0 ? <div className='doc-card__body'>
           <table className='doc-table'>
             <thead>
               <tr>
@@ -132,6 +154,9 @@ function OperatorUserPage (props) {
             </tbody>
           </table>  
         </div>
+        :<div className='doc-card__body' style={{padding:10, minHeight:'140px', display:'flex', alignItems:'center', justifyContent:'center'}}>
+          <p style={{textAlign:'center'}}>No data found.</p>
+        </div>}
       </div>
       {/*popup to show document*/}
       <div id="operatorDocumentPopup" className="nj-overly add-rebound-animation" >

@@ -57,7 +57,6 @@ function OperatorUserPage (props) {
 
 
   const openDocument = (document) => {
-    console.log("DOCUMENT VIEW", document)
     setSelectedDocument(document);
     openPopup()
     // setNumPages(null);
@@ -123,7 +122,7 @@ function OperatorUserPage (props) {
                   :<span>Skipped</span>}
                 </td>
                 <td>
-                  {!candidate.certificateSkipped && (candidate.certificate && candidate.certificate.length>0) ? <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.answerSheet)}>view</span>
+                  {!candidate.certificateSkipped && (candidate.certificate && candidate.certificate.length>0) ? <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.certificate[0])}>view</span>
                   :<span>Skipped</span>}
                 </td>
                 {/* <td>
@@ -134,10 +133,10 @@ function OperatorUserPage (props) {
           </table>  
         </div>
       </div>
-      {/*popup to delete course*/}
+      {/*popup to show document*/}
       <div id="operatorDocumentPopup" className="nj-overly add-rebound-animation" >
-          <div className="doc-popup my-popup" style={{maxWidth:900}}>
-            <div className="doc-popup-form" style={{maxWidth:900, overflow:'auto'}}>
+          <div className="doc-popup my-popup" style={{maxWidth:700, marginTop:'5vh'}}>
+            <div className="doc-popup-form" style={{maxWidth:700, overflow:'auto'}}>
                 <div className="doc-popup-form__inner">
                   <div className="doc-popup-title">
                     <span onClick={hidePopUp} className="doc-popup__close">
@@ -158,7 +157,7 @@ function OperatorUserPage (props) {
                       </svg>  
                     </span>
                   </div>
-                  {showPDF && <div style={{maxHeight:'74vh', overflow:'auto', display: 'flex',flexDirection: 'column',alignItems: 'center'}}>
+                  {showPDF && <div style={{height:'74vh', overflow:'auto', display: 'flex',flexDirection: 'column',alignItems: 'center'}}>
                     <Document file={selectedDocument.path} onLoadSuccess={onDocumentLoadSuccess}>
                       <Page pageNumber={pageNumber} />
                     </Document>

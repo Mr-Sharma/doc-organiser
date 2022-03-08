@@ -244,13 +244,13 @@ function OperatorUpload (props) {
                       onClick={handleSkippedChange} defaultChecked={true} 
                       checked={answerSheetSkipped === "mandatory"}
                     />
-                    <label for="answerSheetMandatory" style={{fontSize:16, fontWeight: 400}}>Mandatory</label>
+                    <label htmlFor="answerSheetMandatory" style={{fontSize:16, fontWeight: 400}}>Mandatory</label>
 
                     <input type="radio" value="skipped" name="answerSheetSkipped" id="answerSheetSkipped"
                       onClick={handleSkippedChange}  style={{marginLeft: 12}} defaultChecked={false}
                       checked={answerSheetSkipped == "skipped"}
                     />
-                    <label for="answerSheetSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
+                    <label htmlFor="answerSheetSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                   </div>
                 </div>
               </div>
@@ -265,13 +265,13 @@ function OperatorUpload (props) {
                       onClick={handleSkippedChange} defaultChecked={true}
                       checked={pattingSheetSkipped === "mandatory"}
                     />
-                    <label for="pattingSheetMandatory" style={{fontSize:16, fontWeight: 400}}>Mandatory</label>
+                    <label htmlFor="pattingSheetMandatory" style={{fontSize:16, fontWeight: 400}}>Mandatory</label>
 
                     <input type="radio" value="skipped" name="pattingSheetSkipped" id="pattingSheetSkipped"
                       onClick={handleSkippedChange}  style={{marginLeft: 12}} defaultChecked={false}
                       checked={pattingSheetSkipped == "skipped"}
                     />
-                    <label for="pattingSheetSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
+                    <label htmlFor="pattingSheetSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                   </div>
                 </div>
               </div>
@@ -286,13 +286,13 @@ function OperatorUpload (props) {
                       onClick={handleSkippedChange} defaultChecked={true}
                       checked={cformSkipped === "mandatory"}
                     />
-                    <label for="cformMandatory" style={{fontSize:16, fontWeight: 400}}>Mandatory</label>
+                    <label htmlFor="cformMandatory" style={{fontSize:16, fontWeight: 400}}>Mandatory</label>
 
                     <input type="radio" value="skipped" name="cformSkipped" id="cformSkipped"
                       onClick={handleSkippedChange}  style={{marginLeft: 12}} defaultChecked={false}
                       checked={cformSkipped == "skipped"}
                     />
-                    <label for="cformSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
+                    <label htmlFor="cformSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                   </div>
                 </div>
               </div>
@@ -307,13 +307,13 @@ function OperatorUpload (props) {
                       onClick={handleSkippedChange}
                       checked={markSheetSkipped === "mandatory"} defaultChecked={true}
                     />
-                    <label for="markSheetMandatory" style={{fontSize:16, fontWeight: 400}}>Mandatory</label>
+                    <label htmlFor="markSheetMandatory" style={{fontSize:16, fontWeight: 400}}>Mandatory</label>
 
                     <input type="radio" value="skipped" name="markSheetSkipped" id="markSheetSkipped"
                       onClick={handleSkippedChange} style={{marginLeft: 12}}
                       checked={markSheetSkipped == "skipped"} defaultChecked={false}
                     />
-                    <label for="markSheetSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
+                    <label htmlFor="markSheetSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                   </div>
                 </div>
               </div>
@@ -328,13 +328,13 @@ function OperatorUpload (props) {
                       onClick={handleSkippedChange}
                       checked={certificateSkipped === "mandatory"} defaultChecked={true}
                     />
-                    <label for="certificateMandatory" style={{fontSize:16, fontWeight: 400}}>Mandatory</label>
+                    <label htmlFor="certificateMandatory" style={{fontSize:16, fontWeight: 400}}>Mandatory</label>
 
                     <input type="radio" value="skipped" name="certificateSkipped" id="certificateSkipped"
                       onClick={handleSkippedChange} style={{marginLeft: 12}}
                       checked={certificateSkipped == "skipped"} defaultChecked={false}
                     />
-                    <label for="certificateSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
+                    <label htmlFor="certificateSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                   </div>
                 </div>
               </div>

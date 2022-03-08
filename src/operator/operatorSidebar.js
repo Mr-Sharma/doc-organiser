@@ -2,7 +2,23 @@ import React, {Component} from "react";
 import {NavLink} from 'react-router-dom';
 
 class AdminSidebar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userData:null,
+      username: 'User'
+    };
+  }
 
+  componentDidMount = () => {
+    const data = JSON.parse(sessionStorage.getItem('userData'));
+    this.setState({data});
+    if(data && data.type && data.type != 0) {
+      this.setState({username: data.username});
+    } else {
+      this.setState({username: 'User'});
+    }
+  }
   render() {
     return (
       <div className="left-area">
@@ -42,7 +58,7 @@ class AdminSidebar extends Component {
             <div className="profile-wrap">
                 <img src="https://cdn.dribbble.com/users/882393/screenshots/5745778/media/677aee7c4387cd5e87e00d16613822f6.jpg" alt="A" />
                 <div className="profile-info">
-                    <span className="profile-name">User</span>
+                    <span className="profile-name">{this.state.username || 'User'}</span>
                     <span className="country">Data Entry</span>
                 </div>
             </div>

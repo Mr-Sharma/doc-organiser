@@ -34,7 +34,6 @@ function OperatorUpload (props) {
   const getCandidates = async () => {
     try {
       let response = await trackPromise(axios.get('/api/candidate/get'));
-      console.log("getCandidates",response);
       var userList = response.data.message || [];
       setCandidates(userList);
       setSelectedCandidate(userList[0])
@@ -47,13 +46,11 @@ function OperatorUpload (props) {
   const handleCandidateChange = (event) => {
     var temp= JSON.parse(event.target.value)
      setSelectedCandidate(temp);
-     console.log("Selcted", temp)
   }
 
   const handleAnswerSheetFileChange=(e)=>{
     if(e.target.files.length>0){
       if(e.target.name==='file'){
-        console.log("file",e.target.files);
         setAnswerSheetFile(e.target.files[0]);
       }
     }
@@ -61,7 +58,6 @@ function OperatorUpload (props) {
   const handlePattingSheetFileChange=(e)=>{
     if(e.target.files.length>0){
       if(e.target.name==='file'){
-        console.log("file",e.target.files);
         setPattingSheetFile(e.target.files[0]);
       }
     }
@@ -69,7 +65,6 @@ function OperatorUpload (props) {
   const handleCformFileChange=(e)=>{
     if(e.target.files.length>0){
       if(e.target.name==='file'){
-        console.log("file",e.target.files);
         setCformFile(e.target.files[0]);
       }
     }
@@ -77,7 +72,6 @@ function OperatorUpload (props) {
   const handlemarkSheetFileChange=(e)=>{
     if(e.target.files.length>0){
       if(e.target.name==='file'){
-        console.log("file",e.target.files);
         setMarkSheetFile(e.target.files[0]);
       }
     }
@@ -85,7 +79,6 @@ function OperatorUpload (props) {
   const handleCertificateFileChange=(e)=>{
     if(e.target.files.length>0){
       if(e.target.name==='file'){
-        console.log("file",e.target.files);
         setCertificateFile(e.target.files[0]);
       }
     }
@@ -114,14 +107,19 @@ function OperatorUpload (props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(answerSheetSkipped == "mandatory" && answerSheetFile == null) {
+      alert.error("Answer sheet is mandatory!")
       return
     } else if (pattingSheetSkipped == "mandatory" && pattingSheetFile == null) {
+      alert.error("Patting sheet is mandatory!")
       return
     } else if (cformSkipped == "mandatory" && cformFile == null) {
+      alert.error("C Form is mandatory!")
       return
     } else if (markSheetSkipped == "mandatory" && markSheetFile == null) {
+      alert.error("Mark sheet is mandatory!")
       return
     } else if (certificateSkipped == "mandatory" && certificateFile == null) {
+      alert.error("Certificate is mandatory!")
       return
     } 
     var promises = [];
@@ -192,7 +190,6 @@ function OperatorUpload (props) {
     }
     // if(answerSheetFile != null && pattingSheetFile != null && cformFile != null && markSheetFile != null && certificateFile != null){
       await Promise.all(promises).then(function(response) {
-        console.log("INSIDE PROMISES", response);
         alert.success("Data uploaded successfully")
         document.getElementById("uploadFile").value=null;
         setAnswerSheetSkipped('mandatory')
@@ -206,14 +203,12 @@ function OperatorUpload (props) {
         setCertificateFile(null)
         setMarkSheetFile(null)
       }, function(error) {
-        console.log("Error PROMISES", error)
         alert.error("Data upload failed")
       });
     // }
   }
 
   const apiCall = async (body) => {
-    console.log("BODY",body);
     const configuration = { headers: { "Content-Type": "multipart/form-data" } };
     return await trackPromise(axios.put("/api/candidate/upload", body, configuration))
     // .then(function(response) {

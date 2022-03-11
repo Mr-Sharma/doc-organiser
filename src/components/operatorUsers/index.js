@@ -32,7 +32,6 @@ function OperatorUserPage (props) {
   const getCandidates = async () => {
     try {
       let response = await trackPromise(axios.get('/api/candidate/get'));
-      console.log("getCandidates",response);
       var userList = response.data.message || [];
       var finalList = [];
       for(let i=0;i<userList.length;i++) {

@@ -31,7 +31,6 @@ function UserPage (props) {
   const getCandidates = async () => {
     try {
       let response = await trackPromise(axios.get('/api/candidate/get'));
-      console.log("getCandidates",response);
       // alert.success('Oh look, an alert!')
       setCandidates(response.data.message || []);
       setUnfilteredCandidates(response.data.message || []);

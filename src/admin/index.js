@@ -65,7 +65,7 @@ class AdminDashboard extends Component {
   render() {
     return (
       <div>
-        <Sidebar  sidebar={<SidebarContent />} open={this.state.sidebarOpen} docked={this.state.sidebarDocked} onSetOpen={this.onSetSidebarOpen} shadow={false} defaultSidebarWidth={230}>
+        <Sidebar  sidebar={<SidebarContent />} open={this.state.sidebarOpen} docked={this.state.sidebarDocked} styles={{sidebar:{padding:20}}} onSetOpen={this.onSetSidebarOpen} shadow={false} defaultSidebarWidth={230}>
           <div className="right-area-upper">
             {/* <button className="menu-button" onClick={this.toggleSidebar}>
               <svg width={24} height={24} fill="none" stroke="#51a380" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>

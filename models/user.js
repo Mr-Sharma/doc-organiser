@@ -6,18 +6,17 @@ var userSchema = new Schema({
     username: {
         type: constants.STRING,
         required:constants.TRUE,
-        unique:constants.TRUE
     },
     email:{
-        type: constants.STRING,
-        unique:constants.FALSE
-    },
-    contactNumber:{
         type: constants.STRING
     },
-    password: {
+    phoneNumber:{
         type: constants.STRING,
-        required:constants.TRUE
+        required:constants.TRUE,
+        unique:constants.TRUE
+    },
+    password: {
+        type: constants.STRING
     },
     type: {
         type: constants.STRING,

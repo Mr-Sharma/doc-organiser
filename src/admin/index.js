@@ -1,7 +1,9 @@
 
 import React, { Component } from "react";
 import "./admin.scss";
-import UserPage from "../components/users"
+import UserPage from "../components/users";
+import SubadminsPage from "../components/subadmins";
+import OperatorsPage from "../components/createOperator";
 import { Route,Routes} from "react-router-dom";
 import Sidebar from "react-sidebar";
 import SidebarContent from './adminSidebar';
@@ -74,7 +76,7 @@ class AdminDashboard extends Component {
               </svg>
             </button> */}
             <div className="search-part-wrapper">
-              <p className="search-input">Candidates</p>
+              <p className="search-input">Dashboard</p>
               <span className="search-input"></span>
               <a className="menu-links" href="#" onClick={this.logoutUser}>
                 <span className="sm:inline-flex xl:hidden cursor-pointer mr-1 feather-icon select-none relative purple-feather-icon">
@@ -97,6 +99,8 @@ class AdminDashboard extends Component {
           <div className="content-wrap" style={{padding:'0 20px'}}>
             <Routes>
               <Route exact path="users" element={<UserPage/>} /> 
+              <Route exact path="subadmins" element={<SubadminsPage/>} /> 
+              <Route exact path="operators" element={<OperatorsPage/>} /> 
               <Route path="*" element={<h1>Page not Found!!!</h1>} />   
             </Routes>
           </div>

@@ -5,31 +5,33 @@ module.exports = {
   createUser: createUser,
   authenticateUser:authenticateUser,
   fetchAllUsers:fetchAllUsers,
+  fetchAllUsersByType:fetchAllUsersByType,
   fetchUser:fetchUser,
   deleteUser:deleteUser,
-  updateUser:updateUser
+  updateUser:updateUser,
+  checkUserPhoneExists:checkUserPhoneExists,
 }
 
 function createUser(data,callback){
-  User.findOne({username:data.username},function(err, res) {
+  User.findOne({phoneNumber: data.phoneNumber},function(err, res) {
     if (err) {
       callback(err,null)
     } else if(res==null) {
       User.create(data,function(err,res){
         if(err){
-          console.log("ERROR", err)
+          console.log("ERROR",err)
           callback(err,null)
         }else{
           callback(null,'user created successfully')
         }
       })
     } else {
-      callback(null,'username is taken')
+      callback('phoneNumber is taken', null)
     }
   })
 }
 
-function authenticateUser(data,callback){
+function authenticateUser(data, callback){
   const username = data.username;
   const password = data.password;
   User.findOne({username}, function(err, res) {
@@ -57,20 +59,30 @@ function fetchAllUsers(callback){
   })
 }
 
-function fetchUser(data,callback){
-  User.findOne({username:data.username},function(err, res) {
+function fetchAllUsersByType(type, callback){
+  User.find({type}, function(err, res) {
+    if (err) {
+      callback(err,null)
+    } else {
+      callback(null,res)
+    }
+  })
+}
+
+function fetchUser(data, callback){
+  User.findOne({username:data.username}, function(err, res) {
     if (err) {
       callback(err,null)
     } else if(res==null) {
-      callback(null,{userExists:false,res})
+      callback(null, {userExists:false,res})
     } else {
-      callback(null,{userExists:true,res})
+      callback(null, {userExists:true,res})
     }
   })
 }
 
-function deleteUser(data,callback){
-  User.findOneAndDelete({_id:data.user_id},function(err, res) {
+function deleteUser(_id, callback){
+  User.findOneAndDelete({_id:_id}, function(err, res) {
     if (err) {
       callback(err,null)
     } else {
@@ -79,12 +91,38 @@ function deleteUser(data,callback){
   })
 }
 
-function updateUser(data,callback){
-  User.findOneAndUpdate({_id:data.user_id},{username:data.username,password:data.password,email:data.email,contactNumber:data.contactNumber,type:data.type},function(err, res) {
+function updateUser(_id, data, callback){
+  User.findOneAndUpdate({_id:_id}, {$set:data}, {new: true}, function(err, res) {
     if (err) {
       callback(err,null)
     } else {
       callback(null,res)
     }
+  })
+}
+
+//newly added
+function checkUserPhoneExists(phoneNumber){
+  return new Promise(function(resolve, reject){
+    User.findOne({phoneNumber:phoneNumber}, function(err, result){
+      if(err){
+        reject(err)
+      }else {
+        if(result == null){
+          var obj = {};
+          obj.success = false;
+          obj.userExists = false;
+          obj.message = "Phone Number not found";
+          resolve(obj)
+        }else {
+          var obj = {};
+          obj.success = true;
+          obj.userExists = true;
+          obj.message = "Phone number is taken";
+          obj.userDetails = result
+          resolve(obj)
+        }
+      }
+    })
   })
 }

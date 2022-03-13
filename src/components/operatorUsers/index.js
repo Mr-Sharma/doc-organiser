@@ -103,7 +103,7 @@ function OperatorUserPage (props) {
         <div className="doc-card__header">
           <p>Documents</p>
         </div>
-        <div className="doc-card__header" style={{margin:0, padding:'0 24px'}}>
+        <div className="doc-card__header" style={{margin:0, padding:'0 16px'}}>
           <input style={{height:36}} className="doc-popup-form__input" type="text" name="searchUser" value={searchUser} onChange={handleSearchChange} placeholder="Search by aadhar" autoComplete="off" />
         </div>
         {candidates && candidates.length>0 ? <div className='doc-card__body'>
@@ -118,6 +118,7 @@ function OperatorUserPage (props) {
                 <th>C Form</th>
                 <th>Marks Card</th>
                 <th>Certificate</th>
+                <th>Uploaded By</th>
                 {/* <th>Actions</th> */}
               </tr>
             </thead>
@@ -145,6 +146,10 @@ function OperatorUserPage (props) {
                 <td>
                   {!candidate.certificateSkipped && (candidate.certificate && candidate.certificate.length>0) ? <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.certificate[0])}>view</span>
                   :<span>Skipped</span>}
+                </td>
+                <td>
+                  {candidate.updatedBy && candidate.updatedBy!="" ? <span>{candidate.updatedBy}</span>
+                  :<span>-</span>}
                 </td>
                 {/* <td>
                   <span className='view-button2' onClick={()=>handleEdit(candidate)}>Edit</span>

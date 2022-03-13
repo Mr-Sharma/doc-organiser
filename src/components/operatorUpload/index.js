@@ -124,15 +124,18 @@ function OperatorUpload (props) {
     } 
     var promises = [];
     var answerSheetFormData = new FormData();
+    const userData = JSON.parse(sessionStorage.getItem('userData')) || {username: ''};
     if(answerSheetSkipped == "mandatory" && answerSheetFile != null) {
       answerSheetFormData.append('file', answerSheetFile);
       answerSheetFormData.append('answerSheetSkipped', false);
       answerSheetFormData.append('_id', selectedCandidate._id);
+      answerSheetFormData.append('updatedBy', userData.username);
       // promises.push(axios.put("/api/candidate/upload", answerSheetFormData, configuration));
       promises.push(apiCall(answerSheetFormData));
     } else if(answerSheetSkipped == "skipped") {
       answerSheetFormData.append('answerSheetSkipped', true);
       answerSheetFormData.append('_id', selectedCandidate._id);
+      answerSheetFormData.append('updatedBy', userData.username);
       // answerSheetFormData.push(axios.put("/api/candidate/upload", answerSheetFormData, configuration));
       promises.push(apiCall(answerSheetFormData));
     }
@@ -141,11 +144,13 @@ function OperatorUpload (props) {
       pattingSheetFormData.append('file', pattingSheetFile);
       pattingSheetFormData.append('pattingSheetSkipped', false);
       pattingSheetFormData.append('_id', selectedCandidate._id);
+      pattingSheetFormData.append('updatedBy', userData.username);
       // promises.push(axios.put("/api/candidate/upload", pattingSheetFormData, configuration));
       promises.push(apiCall(pattingSheetFormData));
     } else if(pattingSheetSkipped == "skipped") {
       pattingSheetFormData.append('pattingSheetSkipped', true);
       pattingSheetFormData.append('_id', selectedCandidate._id);
+      pattingSheetFormData.append('updatedBy', userData.username);
       // pattingSheetFormData.push(axios.put("/api/candidate/upload", pattingSheetFormData, configuration));
       promises.push(apiCall(pattingSheetFormData));
     }
@@ -154,11 +159,13 @@ function OperatorUpload (props) {
       cformData.append('file', cformFile);
       cformData.append('cformSkipped', false);
       cformData.append('_id', selectedCandidate._id);
+      cformData.append('updatedBy', userData.username);
       // promises.push(axios.put("/api/candidate/upload", cformData, configuration));
       promises.push(apiCall(cformData));
     } else if(cformSkipped == "skipped") {
       cformData.append('cformSkipped', true);
       cformData.append('_id', selectedCandidate._id);
+      cformData.append('updatedBy', userData.username);
       // promises.push(axios.put("/api/candidate/upload", cformData, configuration));
       promises.push(apiCall(cformData));
     }
@@ -167,11 +174,13 @@ function OperatorUpload (props) {
       markSheetFormData.append('file', markSheetFile);
       markSheetFormData.append('markSheetSkipped', false);
       markSheetFormData.append('_id', selectedCandidate._id);
+      markSheetFormData.append('updatedBy', userData.username);
       // promises.push(axios.put("/api/candidate/upload", markSheetFormData, configuration));
       promises.push(apiCall(markSheetFormData));
     } else if(markSheetSkipped == "skipped") {
       markSheetFormData.append('markSheetSkipped', true);
       markSheetFormData.append('_id', selectedCandidate._id);
+      markSheetFormData.append('updatedBy', userData.username);
       // promises.push(axios.put("/api/candidate/upload", markSheetFormData, configuration));
       promises.push(apiCall(markSheetFormData));
     }
@@ -180,11 +189,13 @@ function OperatorUpload (props) {
       certificateFormData.append('file', certificateFile)
       certificateFormData.append('certificateSkipped', false);
       certificateFormData.append('_id', selectedCandidate._id);
+      certificateFormData.append('updatedBy', userData.username);
       // promises.push(axios.put("/api/candidate/upload", certificateFormData, configuration));
       promises.push(apiCall(certificateFormData));
     }  else if(certificateSkipped == "skipped") {
       certificateFormData.append('certificateSkipped', true);
       certificateFormData.append('_id', selectedCandidate._id);
+      certificateFormData.append('updatedBy', userData.username);
       // promises.push(axios.put("/api/candidate/upload", certificateFormData, configuration));
       promises.push(apiCall(certificateFormData));
     }

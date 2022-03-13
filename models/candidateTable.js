@@ -105,6 +105,9 @@ function uploadFile(data,callback){
         callback('nothing to update');
         return;
       }
+      if(data.body && data.body.updatedBy && data.body.updatedBy != "") {
+        obj.updatedBy = data.body.updatedBy;
+      }
       Candidate.findOneAndUpdate({_id: data.body._id}, {$set: obj}, {new: true}, function(err,res) {
         if(err) {
           callback(err,null)

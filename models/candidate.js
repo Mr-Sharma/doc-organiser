@@ -47,6 +47,9 @@ var candidateSchema = new Schema({
     phoneNumber: {
         type: constants.STRING
     },
+    updatedBy: {
+        type: constants.STRING
+    },
     createdAt:{
         type:Date,
         default:Date.now,

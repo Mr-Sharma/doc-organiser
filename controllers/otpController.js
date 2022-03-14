@@ -1,109 +1,16 @@
 var rest = require('restler');
-const msg91AuthKey= '198919AIIIf4uxIM65a8bc4b5';
 var email=require('./emailController')
 var otpCollection=require('../models/otpTable')
 var randomize = require('randomatic');
+const phoneNumbers = require('../lib/phoneNumbers');
 
 module.exports = {
-   sendOtp:sendOtp,
-   verifyOtp:verifyOtp,
-   resendOtp:resendOtp,
    sendOtpThroughEmail:sendOtpThroughEmail,
    resendOtpThroughEmail:resendOtpThroughEmail,
    verifyOtpThroughEmail:verifyOtpThroughEmail,
    sendOtpNew:sendOtpNew,
    resendOtpThroughPhoneNew:resendOtpThroughPhoneNew,
    verifyOtpThroughPhoneNew:verifyOtpThroughPhoneNew
-}
-
-function sendOtp(data,callback) {
-    
-	var uri = "http://api.msg91.com/api/sendotp.php"
-	var paramData={ 
-	 	multipart: true,
-		authkey: msg91AuthKey,
-		mobile: data.phoneNumber,
-		message:'##OTP## is your One Time Password. Please do not share this with anyone.',
-		sender:'',
-		otp_expiry:'2',
-		otp_length:'4'
-	}
-
-	rest.post(uri,{data:paramData})
-    .on('success', function(data) {
-    	var data=JSON.parse(data)
-    	console.log("success",data)
-    	if(data.type=="error"){
-		callback(data.message,null);
-	}
-	else{
-		callback(null,data)
-	}
-		
-	})
-	.on('fail', function(data, response) {
-		//console.log("fail",data)
-        callback(data, null)
-
-    })
-}
-
-
-function resendOtp(data,callback) {
-    
-	var uri = "http://api.msg91.com/api/retryotp.php"
-	var paramData={ 
-	 	multipart: true,
-		authkey: msg91AuthKey,
-		mobile: data.phoneNumber,
-		retrytype: data.retryType
-	}
-
-	rest.post(uri,{data:paramData})
-    .on('success', function(data) {
-		//callback(null, data);
-		//var data=JSON.stringify(data)
-		var data =JSON.parse(data)
-		//var data=JSON.parse(data)
-    	console.log("success in resend",data)
-    	if(data.type=="success"){
-			callback(null,data.message);
-		}
-		else{
-			callback(data.message,null)
-		}
-	})
-	.on('fail', function(data, response) {
-        callback(data, null);
-    })
-}
-
-function verifyOtp(data,callback) {
-    
-	var uri = "http://api.msg91.com/api/verifyRequestOTP.php"
-	var paramData={ 
-	 	multipart: true,
-		authkey: msg91AuthKey,
-		mobile: data.phoneNumber,
-		otp: data.otp
-	}
-
-	rest.post(uri,{data:paramData})
-    .on('complete', function(data) {
-		//callback(null, data);
-		var data=JSON.parse(data)
-    	console.log("success",data)
-    	if(data.type=="error"){
-			callback(data.message,null);
-		}
-		else{
-			callback(null,data.message)
-		}
-
-	})
-	.on('fail', function(data, response) {
-        callback(data, null);
-    })
 }
 
 
@@ -164,7 +71,8 @@ otpCollection.verifyOtp(data,function(err,response){
 //newly added
 function sendOtpNew(body,callback) {
 	var otp=randomize('0000');
-	if(body.phoneNumber=='1234567890'){
+	const defaultNumbers = phoneNumbers.array || [];
+	if(defaultNumbers.includes(body.phoneNumber)){
 		otp = '1234';
 		otpCollection.storeOtp({otp,phoneNumber:body.phoneNumber},function(err,response){
 			if(err){
@@ -224,7 +132,7 @@ function resendOtpThroughPhoneNew(data,callback) {
 function verifyOtpThroughPhoneNew(data,callback) {
 	otpCollection.verifyOtpThroughPhoneNew(data, function(err,response){
 	  if(err){
-		  callback('Failed to verify', null)
+		  callback(err, null)
 	  }else{
 		  callback(null, response)
 	  }

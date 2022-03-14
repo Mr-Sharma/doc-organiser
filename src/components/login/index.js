@@ -56,14 +56,14 @@ function LoginPage () {
       obj.phoneNumber = phoneNumber;
       try {
         const phoneExists = await axios.get("/api/user/checkUserPhoneExists/"+phoneNumber);
-        if(phoneExists.data && phoneExists.data.success) {
+        if(phoneExists.data && phoneExists.data.message && phoneExists.data.message.userExists) {
           const response = axios.put("/api/user/phone/sendotp", obj);
           alert.success('Verification code sent to your phone number');
           const time = new Date();
           setExpiryTime(time.setSeconds(time.getSeconds() + 120));
           setShowOtp(true);
         } else {
-          alert.error("Invalid Phone number");
+          alert.error("Phone number is not registered");
         }
         setPhoneLoader(false);
       } catch (error) {
@@ -105,7 +105,7 @@ function LoginPage () {
       axios
       .put("/api/user/phone/verify", obj)
       .then(response => {
-        console.log("response", response);
+        // console.log("response", response);
         if(!response.data.success){
           setError('Invalid code');
           setShowErrorMsg(true);
@@ -144,7 +144,7 @@ function LoginPage () {
                   <input type="text" className="card-input__input" disabled={showOtp} name="phoneNumber" value={phoneNumber} onChange={handlePhoneNumberChange} required autoFocus="" />
                 </div>
                 {!showOtp && <button className="doc-button" disabled={phoneLoader} style={{width: '100%', padding: 16, fontSize: 16, fontWeight: 500, marginTop: 10}}>
-                  {!phoneLoader ? <span>Submit</span>:<div class="typing_loader"></div>}
+                  {!phoneLoader ? <span>Submit</span>:<div className="typing_loader"></div>}
                 </button>}
               </form>
               {showOtp && <div style={{textAlign:'center'}}>
@@ -161,10 +161,10 @@ function LoginPage () {
                 {showErrorMsg && <p style={{textAlign: 'center',color: '#ff5151', fontSize:14}}>{error}</p>}
                 <div style={{display:'flex', marginTop: 10}}>
                   <button className="doc-button" type='button' disabled={resendLoader} onClick={handleResendSubmit} style={{width: '100%', padding: 16, fontSize: 16, fontWeight: 500, marginRight: 20}}>
-                    {!resendLoader ? <span>Resend Code</span>:<div class="typing_loader"></div>}
+                    {!resendLoader ? <span>Resend Code</span>:<div className="typing_loader"></div>}
                   </button>
                   <button className="doc-button" type='submit' disabled={codeLoader} style={{width: '100%', padding: 16, fontSize: 16, fontWeight: 500}}>
-                    {!codeLoader ? <span>Submit</span>:<div class="typing_loader"></div>}
+                    {!codeLoader ? <span>Submit</span>:<div className="typing_loader"></div>}
                   </button>
                 </div>
               </form>}

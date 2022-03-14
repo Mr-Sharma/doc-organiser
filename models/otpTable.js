@@ -144,7 +144,7 @@ function verifyOtpThroughPhoneNew(data,callback){
                     callback(null,response)
                 }
                 else{
-                    callback("otp not found!",null)
+                    callback("phone number not found!",null)
                 }
             })
         }

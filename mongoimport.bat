@@ -1,0 +1,1 @@
+mongoimport --db new-test --collection users --file data/users.json

@@ -41,11 +41,12 @@ function OperatorUserPage (props) {
     }
   }
 
-  const goToView = (view, candidateName) => {
+  const goToView = (view, candidateName, docType) => {
     if(view && view.length>0) {
       setSelectedDocument(view);
       sessionStorage.setItem('selectedView',JSON.stringify(view));
       sessionStorage.setItem('selectedViewCandidate',JSON.stringify(candidateName));
+      sessionStorage.setItem('selectedViewDocumentType',JSON.stringify(docType));
       history('/operator/view')
     }
   }
@@ -96,27 +97,27 @@ function OperatorUserPage (props) {
                 <td>{candidate.name}</td>
                 <td>{candidate.rollNumber}</td>
                 <td>
-                  {!candidate.admissionApprovalSkipped && (candidate.admissionApproval && candidate.admissionApproval.length>0) ? <span className='view-button' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.admissionApproval, candidate)}>view</span>
+                  {!candidate.admissionApprovalSkipped && (candidate.admissionApproval && candidate.admissionApproval.length>0) ? <span className='view-button' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.admissionApproval, candidate, 'admissionApproval')}>view</span>
                   :<span>Skipped</span>}
                 </td>
                 <td>
-                  {!candidate.answerSheetSkipped && (candidate.answerSheet && candidate.answerSheet.length>0) ? <span className='view-button' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.answerSheet, candidate)}>view</span>
+                  {!candidate.answerSheetSkipped && (candidate.answerSheet && candidate.answerSheet.length>0) ? <span className='view-button' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.answerSheet, candidate, 'answerSheet')}>view</span>
                   :<span>Skipped</span>}
                 </td>
                 <td>
-                {!candidate.packingSlipSkipped && (candidate.packingSlip && candidate.packingSlip.length>0) ? <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.packingSlip, candidate)}>view</span>
+                {!candidate.packingSlipSkipped && (candidate.packingSlip && candidate.packingSlip.length>0) ? <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.packingSlip, candidate, 'packingSlip')}>view</span>
                   :<span>Skipped</span>}
                 </td>
                 <td>
-                {!candidate.cformSkipped && (candidate.cform && candidate.cform.length>0) ? <span className='view-button2' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.cform, candidate)}>view</span>
+                {!candidate.cformSkipped && (candidate.cform && candidate.cform.length>0) ? <span className='view-button2' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.cform, candidate, 'cform')}>view</span>
                   :<span>Skipped</span>}
                 </td>
                 <td>
-                  {!candidate.markSheetSkipped && (candidate.markSheet && candidate.markSheet.length>0) ? <span className='view-button' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.markSheet, candidate)}>view</span>
+                  {!candidate.markSheetSkipped && (candidate.markSheet && candidate.markSheet.length>0) ? <span className='view-button' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.markSheet, candidate, 'markSheet')}>view</span>
                   :<span>Skipped</span>}
                 </td>
                 <td>
-                  {!candidate.certificateSkipped && (candidate.certificate && candidate.certificate.length>0) ? <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.certificate, candidate)}>view</span>
+                  {!candidate.certificateSkipped && (candidate.certificate && candidate.certificate.length>0) ? <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.certificate, candidate, 'certificate')}>view</span>
                   :<span>Skipped</span>}
                 </td>
                 <td>

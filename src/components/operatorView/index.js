@@ -1,14 +1,13 @@
 import React, {useEffect ,useState } from 'react';
 import './operatorView.scss';
-import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import { useAlert } from 'react-alert'
-import { trackPromise } from 'react-promise-tracker';
+import { useAlert } from 'react-alert';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 
 function OperatorUserPage (props) {
   const [documentList, setDocumentList] = useState([]);
   const [viewTitle, setViewTitle] = useState(null);
+  const [viewDocumentType, setViewDocumentType] = useState(null);
   const [selectedDocument, setSelectedDocument] = useState(null);
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
@@ -21,6 +20,9 @@ function OperatorUserPage (props) {
     setDocumentList(selectedView);
     const selectedViewCandidate =  JSON.parse(sessionStorage.getItem('selectedViewCandidate'));
     setViewTitle(selectedViewCandidate.name || 'View Document');
+    const selectedViewDocumentType =  JSON.parse(sessionStorage.getItem('selectedViewDocumentType'));
+    console.log('selectedViewDocumentType', selectedViewDocumentType)
+    setViewDocumentType(selectedViewDocumentType || '');
   }, []);
 
   const alert = useAlert();
@@ -70,7 +72,9 @@ function OperatorUserPage (props) {
             <thead>
               <tr>
                 <th>Sl No.</th>
-                <th>Trade</th>
+                {viewDocumentType === 'admissionApproval' && <th>Trade</th>}
+                {viewDocumentType === 'certificate' && <th>Type</th>}
+                {(viewDocumentType === 'answerSheet' || viewDocumentType === 'packingSlip' || viewDocumentType === 'markSheet') && <th>Subject</th>}
                 <th>Month</th>
                 <th>Year</th>
                 <th>File</th>
@@ -79,7 +83,9 @@ function OperatorUserPage (props) {
             <tbody>
               {documentList.map((document, i)=> (<tr key={i}>
                 <td>{i+1}</td>
-                <td>{document.trade}</td>
+                {viewDocumentType === 'admissionApproval' && <td>{document.trade}</td>}
+                {viewDocumentType === 'certificate' && <td>{document.type}</td>}
+                {(viewDocumentType === 'answerSheet' || viewDocumentType === 'packingSlip' || viewDocumentType === 'markSheet') && <td>{document.subject}</td>}
                 <td>{document.month}</td>
                 <td>{document.year}</td>
                 <td>

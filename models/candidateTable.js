@@ -60,6 +60,7 @@ function uploadFile(data,callback){
           data.files[i].destination = filePath;
           data.files[i].path = filePath;
           answerSheetArray.push({file:data.files[i], subject: element.subject, month: element.month, year: element.year});
+          data.files.splice(i,1)
         }
       });
     }
@@ -75,6 +76,7 @@ function uploadFile(data,callback){
           data.files[i].destination = filePath;
           data.files[i].path = filePath;
           admissionApprovalArray.push({file:data.files[i], trade: element.trade, month: element.month, year: element.year});
+          data.files.splice(i,1)
         }
       });
     }
@@ -90,6 +92,7 @@ function uploadFile(data,callback){
           data.files[i].destination = filePath;
           data.files[i].path = filePath;
           packingSlipArray.push({file:data.files[i], subject: element.subject, month: element.month, year: element.year});
+          data.files.splice(i,1)
         }
       });
     }
@@ -105,6 +108,7 @@ function uploadFile(data,callback){
           data.files[i].destination = filePath;
           data.files[i].path = filePath;
           cformArray.push({file:data.files[i], month: element.month, year: element.year});
+          data.files.splice(i,1)
         }
       });
     }
@@ -120,6 +124,7 @@ function uploadFile(data,callback){
           data.files[i].destination = filePath;
           data.files[i].path = filePath;
           markSheetArray.push({file:data.files[i], subject: element.subject, month: element.month, year: element.year});
+          data.files.splice(i,1)
         }
       });
     }
@@ -135,6 +140,7 @@ function uploadFile(data,callback){
           data.files[i].destination = filePath;
           data.files[i].path = filePath;
           certificateArray.push({file:data.files[i], type: element.type, month: element.month, year: element.year});
+          data.files.splice(i,1)
         }
       });
     }

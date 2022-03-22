@@ -54,11 +54,11 @@ function uploadFile(data,callback){
     var answerSheetArray = [];
     const answerSheetBody = JSON.parse(data.body.fields);
     for(var i=0; i<data.files.length;i++) {
-      filePath = '/uploads/documents/'+data.files[i].filename;
-      data.files[i].destination = filePath;
-      data.files[i].path = filePath;
       answerSheetBody.forEach(element => {
         if(data.files[i].originalname == element.fileName) {
+          filePath = '/uploads/documents/'+data.files[i].filename;
+          data.files[i].destination = filePath;
+          data.files[i].path = filePath;
           answerSheetArray.push({file:data.files[i], subject: element.subject, month: element.month, year: element.year});
         }
       });
@@ -69,11 +69,11 @@ function uploadFile(data,callback){
     var admissionApprovalArray = [];
     const admissionApprovalBody = JSON.parse(data.body.fields);
     for(var i=0; i<data.files.length;i++) {
-      filePath = '/uploads/documents/'+data.files[i].filename;
-      data.files[i].destination = filePath;
-      data.files[i].path = filePath;
       admissionApprovalBody.forEach(element => {
         if(data.files[i].originalname == element.fileName) {
+          filePath = '/uploads/documents/'+data.files[i].filename;
+          data.files[i].destination = filePath;
+          data.files[i].path = filePath;
           admissionApprovalArray.push({file:data.files[i], trade: element.trade, month: element.month, year: element.year});
         }
       });
@@ -84,11 +84,11 @@ function uploadFile(data,callback){
     var packingSlipArray = [];
     const packingSlipBody = JSON.parse(data.body.fields);
     for(var i=0; i<data.files.length;i++) {
-      filePath = '/uploads/documents/'+data.files[i].filename;
-      data.files[i].destination = filePath;
-      data.files[i].path = filePath;
       packingSlipBody.forEach(element => {
         if(data.files[i].originalname == element.fileName) {
+          filePath = '/uploads/documents/'+data.files[i].filename;
+          data.files[i].destination = filePath;
+          data.files[i].path = filePath;
           packingSlipArray.push({file:data.files[i], subject: element.subject, month: element.month, year: element.year});
         }
       });
@@ -99,11 +99,11 @@ function uploadFile(data,callback){
     var cformArray = [];
     const cformBody = JSON.parse(data.body.fields);
     for (var i=0; i<data.files.length;i++) {
-      filePath = '/uploads/documents/'+data.files[i].filename;
-      data.files[i].destination = filePath;
-      data.files[i].path = filePath;
       cformBody.forEach(element => {
         if(data.files[i].originalname == element.fileName) {
+          filePath = '/uploads/documents/'+data.files[i].filename;
+          data.files[i].destination = filePath;
+          data.files[i].path = filePath;
           cformArray.push({file:data.files[i], month: element.month, year: element.year});
         }
       });
@@ -114,11 +114,11 @@ function uploadFile(data,callback){
     var markSheetArray = [];
     const markSheetBody = JSON.parse(data.body.fields);
     for(var i=0; i<data.files.length;i++) {
-      filePath = '/uploads/documents/'+data.files[i].filename;
-      data.files[i].destination = filePath;
-      data.files[i].path = filePath;
       markSheetBody.forEach(element => {
         if(data.files[i].originalname == element.fileName) {
+          filePath = '/uploads/documents/'+data.files[i].filename;
+          data.files[i].destination = filePath;
+          data.files[i].path = filePath;
           markSheetArray.push({file:data.files[i], subject: element.subject, month: element.month, year: element.year});
         }
       });
@@ -129,11 +129,11 @@ function uploadFile(data,callback){
     var certificateArray = [];
     const certificateBody = JSON.parse(data.body.fields);
     for(var i=0; i<data.files.length;i++) {
-      filePath = '/uploads/documents/'+data.files[i].filename;
-      data.files[i].destination = filePath;
-      data.files[i].path = filePath;
       certificateBody.forEach(element => {
         if(data.files[i].originalname == element.fileName) {
+          filePath = '/uploads/documents/'+data.files[i].filename;
+          data.files[i].destination = filePath;
+          data.files[i].path = filePath;
           certificateArray.push({file:data.files[i], type: element.type, month: element.month, year: element.year});
         }
       });

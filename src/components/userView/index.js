@@ -1,10 +1,10 @@
 import React, {useEffect ,useState } from 'react';
-import './operatorView.scss';
+import './userView.scss';
 import { useNavigate } from "react-router-dom";
 import { useAlert } from 'react-alert';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 
-function OperatorViewPage (props) {
+function UserViewPage (props) {
   const [documentList, setDocumentList] = useState([]);
   const [viewTitle, setViewTitle] = useState(null);
   const [viewDocumentType, setViewDocumentType] = useState(null);
@@ -65,7 +65,7 @@ function OperatorViewPage (props) {
       <div className='doc-card'>
         <div className="doc-card__header">
           <p>{viewTitle}</p>
-          <button className='doc-button' onClick={()=>{history('/operator/users')}}>Back</button>
+          <button className='doc-button' onClick={()=>{history('/admin/users')}}>Back</button>
         </div>
         {documentList && documentList.length>0 ? <div className='doc-card__body'>
           <table className='doc-table'>
@@ -145,4 +145,4 @@ function OperatorViewPage (props) {
   );
 }
 
-export default OperatorViewPage;
+export default UserViewPage;

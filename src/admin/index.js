@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import "./admin.scss";
 import UserPage from "../components/users";
+import UserViewPage from "../components/userView";
 import SubadminsPage from "../components/subadmins";
 import OperatorsPage from "../components/createOperator";
 import { Route,Routes} from "react-router-dom";
@@ -98,7 +99,8 @@ class AdminDashboard extends Component {
           </div>
           <div className="content-wrap" style={{padding:'0 20px'}}>
             <Routes>
-              <Route exact path="users" element={<UserPage/>} /> 
+              <Route exact path="users" element={<UserPage/>} />
+              <Route exact path="view" element={<UserViewPage/>} />
               <Route exact path="subadmins" element={<SubadminsPage/>} /> 
               <Route exact path="operators" element={<OperatorsPage/>} /> 
               <Route path="*" element={<h1>Page not Found!!!</h1>} />   

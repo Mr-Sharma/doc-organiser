@@ -16,9 +16,6 @@ function UserPage (props) {
   const [showErrorMsg, setShowErrorMsg] = useState(false);
   const [popupType, setPopupType] = useState("create");
   const [selectedDocument, setSelectedDocument] = useState(null);
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [showPDF, setShowPDF] = useState(false);
   const [searchUser , setSearchValue] = useState("");
   const history = useNavigate();
 
@@ -130,29 +127,6 @@ function UserPage (props) {
     }
   }
 
-  const openDocument = (doc) => {
-    setSelectedDocument(doc);
-    document.getElementById('adminDocumentPopup').style.display = 'block'
-    // setNumPages(null);
-    setPageNumber(1);
-    setShowPDF(true)
-  }
-
-  function onDocumentLoadSuccess({ numPages }) {
-    setNumPages(numPages);
-  }
-
-  const handleBack = () => {
-    if(pageNumber>1) {
-      setPageNumber(pageNumber-1)
-    }
-  }
-  const handleNext = () => {
-    if(pageNumber<numPages) {
-      setPageNumber(pageNumber+1)
-    }
-  }
-
   var handleSearchChange = (e) => {
     setSearchValue(e.target.value);
     var data = e.target.value;
@@ -168,12 +142,22 @@ function UserPage (props) {
     }
   }
 
+  const goToView = (view, candidateName, docType) => {
+    if(view && view.length>0) {
+      setSelectedDocument(view);
+      sessionStorage.setItem('selectedView',JSON.stringify(view));
+      sessionStorage.setItem('selectedViewCandidate',JSON.stringify(candidateName));
+      sessionStorage.setItem('selectedViewDocumentType',JSON.stringify(docType));
+      history('/admin/view')
+    }
+  }
+
   return (
     <div>
       <div className='doc-card'>
         <div className="doc-card__header">
           <p>Candidates</p>
-            <button className='doc-button' onClick={handleCreate}>Create</button>
+          <button className='doc-button' onClick={handleCreate}>Create</button>
         </div>
         <div className="doc-card__header" style={{margin:0, padding:'0 16px'}}>
           <input style={{height:36}} className="doc-popup-form__input" type="text" name="searchUser" value={searchUser} onChange={handleSearchChange} placeholder="Search by Roll Number" autoComplete="off" />
@@ -185,8 +169,9 @@ function UserPage (props) {
                 <th>Sl No.</th>
                 <th>Name</th>
                 <th>Roll Number</th>
+                <th>Admission Approval</th>
                 <th>Answer Sheet</th>
-                <th>Patting Sheet</th>
+                <th>Packing Slip</th>
                 <th>C Form</th>
                 <th>Marks Card</th>
                 <th>Certificate</th>
@@ -200,27 +185,32 @@ function UserPage (props) {
                 <td>{candidate.name}</td>
                 <td>{candidate.rollNumber}</td>
                 <td>
-                  {candidate.answerSheetSkipped != undefined && candidate.answerSheetSkipped == false && (candidate.answerSheet && candidate.answerSheet.length>0) && <span className='view-button' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.answerSheet[0])}>view</span>}
+                  {candidate.admissionApprovalSkipped != undefined && candidate.admissionApprovalSkipped == false && (candidate.admissionApproval && candidate.admissionApproval.length>0) && <span className='view-button' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.admissionApproval, candidate, 'admissionApproval')}>view</span>}
+                  {candidate.admissionApprovalSkipped && candidate.admissionApprovalSkipped == true && <span>Skipped</span>}
+                  {candidate.admissionApprovalSkipped == undefined && <span>-</span>}
+                </td>
+                <td>
+                  {candidate.answerSheetSkipped != undefined && candidate.answerSheetSkipped == false && (candidate.answerSheet && candidate.answerSheet.length>0) && <span className='view-button' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.answerSheet, candidate, 'answerSheet')}>view</span>}
                   {candidate.answerSheetSkipped && candidate.answerSheetSkipped == true && <span>Skipped</span>}
                   {candidate.answerSheetSkipped == undefined && <span>-</span>}
                 </td>
                 <td>
-                  {candidate.pattingSheetSkipped != undefined && candidate.pattingSheetSkipped == false && (candidate.pattingSheet && candidate.pattingSheet.length>0) && <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.pattingSheet[0])}>view</span>}
-                  {candidate.pattingSheetSkipped && candidate.pattingSheetSkipped == true && <span>Skipped</span>}
-                  {candidate.pattingSheetSkipped == undefined && <span>-</span>}
+                  {candidate.packingSlipSkipped != undefined && candidate.packingSlipSkipped == false && (candidate.packingSlip && candidate.packingSlip.length>0) && <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.packingSlip, candidate, 'packingSlip')}>view</span>}
+                  {candidate.packingSlipSkipped && candidate.packingSlipSkipped == true && <span>Skipped</span>}
+                  {candidate.packingSlipSkipped == undefined && <span>-</span>}
                 </td>
                 <td>
-                  {candidate.cformSkipped != undefined && candidate.cformSkipped == false && (candidate.cform && candidate.cform.length>0) && <span className='view-button2' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.cform[0])}>view</span>}
+                  {candidate.cformSkipped != undefined && candidate.cformSkipped == false && (candidate.cform && candidate.cform.length>0) && <span className='view-button2' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.cform, candidate, 'cform')}>view</span>}
                   {candidate.cformSkipped && candidate.cformSkipped == true && <span>Skipped</span>}
                   {candidate.cformSkipped == undefined && <span>-</span>}
                 </td>
                 <td>
-                  {candidate.markSheetSkipped != undefined && candidate.markSheetSkipped == false && (candidate.markSheet && candidate.markSheet.length>0) && <span className='view-button' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.markSheet[0])}>view</span>}
+                  {candidate.markSheetSkipped != undefined && candidate.markSheetSkipped == false && (candidate.markSheet && candidate.markSheet.length>0) && <span className='view-button' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.markSheet, candidate, 'markSheet')}>view</span>}
                   {candidate.markSheetSkipped && candidate.markSheetSkipped == true && <span>Skipped</span>}
                   {candidate.markSheetSkipped == undefined && <span>-</span>}
                 </td>
                 <td>
-                  {candidate.certificateSkipped != undefined && candidate.certificateSkipped == false && (candidate.certificate && candidate.certificate.length>0) && <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.certificate[0])}>view</span>}
+                  {candidate.certificateSkipped != undefined && candidate.certificateSkipped == false && (candidate.certificate && candidate.certificate.length>0) && <span className='view-button1' style={{cursor:'pointer'}} onClick={()=>goToView(candidate.certificate, candidate, 'certificate')}>view</span>}
                   {candidate.certificateSkipped && candidate.certificateSkipped == true && <span>Skipped</span>}
                   {candidate.certificateSkipped == undefined && <span>-</span>}
                 </td>
@@ -284,48 +274,6 @@ function UserPage (props) {
                   </div>
                 </div>
               </form>
-            </div>   
-          </div>
-        </div>
-        {/*popup to show document*/}
-        <div id="adminDocumentPopup" className="nj-overly add-rebound-animation" >
-          <div className="doc-popup my-popup" style={{maxWidth:700, marginTop:'5vh'}}>
-            <div className="doc-popup-form" style={{maxWidth:700, overflow:'auto'}}>
-                <div className="doc-popup-form__inner">
-                  <div className="doc-popup-title">
-                    <span onClick={()=>{document.getElementById('adminDocumentPopup').style.display = 'none'}} className="doc-popup__close">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width={24}
-                        height={24}
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="feather feather-x"
-                      >
-                        <line x1={18} y1={6} x2={6} y2={18} />
-                        <line x1={6} y1={6} x2={18} y2={18} />
-                      </svg>  
-                    </span>
-                  </div>
-                  {showPDF && <div style={{height:'74vh', overflow:'auto', display: 'flex',flexDirection: 'column',alignItems: 'center'}}>
-                    <Document file={selectedDocument.path} onLoadSuccess={onDocumentLoadSuccess}>
-                      <Page pageNumber={pageNumber} />
-                    </Document>
-                  </div>}
-                  <div>
-                    <p style={{textAlign:'center'}}>
-                      Page {pageNumber} of {numPages}
-                    </p>
-                    <div style={{textAlign:'center'}}>
-                      <span className='view-button' style={{cursor:'pointer', marginRight:8}} onClick={handleBack}>Back</span>
-                      <span className='view-button' style={{cursor:'pointer'}} onClick={handleNext}>Next</span>
-                    </div>
-                  </div>
-                </div>
             </div>   
           </div>
         </div>

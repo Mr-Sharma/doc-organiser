@@ -3,8 +3,8 @@ var constants = require('../lib/constants');
 
 module.exports.create = function(req, res) {
 	var data=req.body;
-	if(!data.name || !data.aadhar) {
-		res.status(constants.FOUR_HUNDRED).json({success:false,message:'name or aadhar is missing'});
+	if(!data.name || !data.rollNumber) {
+		res.status(constants.FOUR_HUNDRED).json({success:false,message:'name or rollNumber is missing'});
 		return
 	}
 	candidate.create(data,function(err,msg){
@@ -18,8 +18,8 @@ module.exports.create = function(req, res) {
 
 module.exports.update = function(req, res) {
 	var data=req.body;
-	if(!data._id || !data.name || !data.aadhar) {
-		res.status(constants.FOUR_HUNDRED).json({success:false,message:'name or aadhar or _id is missing'});
+	if(!data._id || !data.name || !data.rollNumber) {
+		res.status(constants.FOUR_HUNDRED).json({success:false,message:'name or rollNumber or _id is missing'});
 		return
 	}
 	candidate.update(data,function(err,msg){
@@ -32,7 +32,7 @@ module.exports.update = function(req, res) {
 }
 
 module.exports.uploadFile = function(req, res) {
-	var data=req;
+	var data={files:req.files, body:req.body};
 	candidate.uploadFile(data,function(err,msg){
 		if(err){
 			res.status(constants.FOUR_HUNDRED).json({success:false,message:err});

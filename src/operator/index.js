@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./operator.css";
 import OperatorUserPage from "../components/operatorUsers";
 import OperatorUploadPage from "../components/operatorUpload";
+import OperatorViewPage from "../components/operatorView";
 import {Route,Routes} from "react-router-dom";
 import Sidebar from "react-sidebar";
 import SidebarContent from './operatorSidebar';
@@ -95,9 +96,10 @@ class OperatorDashboard extends Component {
           </div>
           <div className="content-wrap" style={{padding:'0 20px'}}>
             <Routes>
-            <Route  path="users" element={<OperatorUserPage/>} />
-            <Route  path="upload" element={<OperatorUploadPage/>} /> 
-            <Route path="*" element={<h1>Page not Found!!!</h1>} />  
+              <Route  path="users" element={<OperatorUserPage/>} />
+              <Route  path="upload" element={<OperatorUploadPage/>} />
+              <Route  path="view" element={<OperatorViewPage/>} /> 
+              <Route path="*" element={<h1>Page not Found!!!</h1>} />  
             </Routes>
           </div>
         </Sidebar>

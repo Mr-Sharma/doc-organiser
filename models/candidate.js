@@ -7,14 +7,17 @@ var candidateSchema = new Schema({
         type: constants.STRING,
         required:constants.TRUE
     },
-    aadhar: {
+    rollNumber: {
         type: constants.STRING,
         required:constants.TRUE
     },
     answerSheet:{
         type: constants.ARRAY
     },
-    pattingSheet:{
+    admissionApproval:{
+        type: constants.ARRAY
+    },
+    packingSlip:{
         type: constants.ARRAY
     },
     markSheet:{
@@ -29,7 +32,10 @@ var candidateSchema = new Schema({
     answerSheetSkipped: {
         type: constants.BOOLEAN
     },
-    pattingSheetSkipped: {
+    admissionApprovalSkipped: {
+        type: constants.BOOLEAN
+    },
+    packingSlipSkipped: {
         type: constants.BOOLEAN
     },
     cformSkipped: {

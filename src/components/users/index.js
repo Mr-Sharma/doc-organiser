@@ -11,7 +11,7 @@ function UserPage (props) {
   const [unfilteredCandidates, setUnfilteredCandidates] = useState([]);
   const [selectedCandidate, setSelectedCandidate] = useState({});
   const [username, setUsername] = useState("");
-  const [aadhar, setAadhar] = useState("");
+  const [rollNumber, setRollNumber] = useState("");
   const [error, setError] = useState("");
   const [showErrorMsg, setShowErrorMsg] = useState(false);
   const [popupType, setPopupType] = useState("create");
@@ -53,7 +53,7 @@ function UserPage (props) {
 
   const handleCreate = () => {
     setUsername('');
-    setAadhar('');
+    setRollNumber('');
     setPopupType('create');
     openPopup();
   }
@@ -63,22 +63,22 @@ function UserPage (props) {
     setShowErrorMsg(false);
   }
 
-  const handleAadharChange=(e)=>{
-    setAadhar(e.target.value);
+  const handleRollNumberChange=(e)=>{
+    setRollNumber(e.target.value);
     setShowErrorMsg(false);
   }
   
   const handleSubmit = (e) => {
     e.preventDefault()
-    if(popupType == 'create' && username!=='' && username!==undefined && aadhar!=='' && aadhar!==undefined){
+    if(popupType == 'create' && username!=='' && username!==undefined && rollNumber!=='' && rollNumber!==undefined){
       var obj = {};
       obj.name = username;
-      obj.aadhar  = aadhar;
+      obj.rollNumber  = rollNumber;
       axios
       .post("/api/candidate/create", obj)
       .then(response => {
         if(!response.data.success){
-          setError('Name or aadhar is missing!');
+          setError('Name or rollNumber is missing!');
           alert.error("error in updating candidate")
           setShowErrorMsg(true);
         } else {
@@ -99,22 +99,22 @@ function UserPage (props) {
   const handleEdit = (candidate) => {
     setSelectedCandidate(candidate)
     setUsername(candidate.name);
-    setAadhar(candidate.aadhar);
+    setRollNumber(candidate.rollNumber || '');
     setPopupType('edit');
     openPopup()
   }
 
   const updateCandidate = async () => {
-    if(username!=='' && username!==undefined && aadhar!=='' && aadhar!==undefined){
+    if(username!=='' && username!==undefined && rollNumber!=='' && rollNumber!==undefined){
       var obj = {};
       obj.name = username;
-      obj.aadhar  = aadhar;
+      obj.rollNumber  = rollNumber;
       obj._id = selectedCandidate._id
       axios
       .put("/api/candidate/update", obj)
       .then(response => {
         if(!response.data.success){
-          setError('Name or aadhar is missing!');
+          setError('Name or rollNumber is missing!');
           alert.error("error in updating candidate")
           setShowErrorMsg(true);
         } else {
@@ -158,8 +158,8 @@ function UserPage (props) {
     var data = e.target.value;
     if( data && data !== ""){
       var searchedArray=unfilteredCandidates.filter(el =>{
-        if(el.aadhar!==undefined){
-          return el.aadhar.toLowerCase().indexOf(data.toString().toLowerCase()) !== -1;
+        if(el.rollNumber!==undefined){
+          return el.rollNumber.toLowerCase().indexOf(data.toString().toLowerCase()) !== -1;
         }
       })
       setCandidates(searchedArray)
@@ -176,7 +176,7 @@ function UserPage (props) {
             <button className='doc-button' onClick={handleCreate}>Create</button>
         </div>
         <div className="doc-card__header" style={{margin:0, padding:'0 16px'}}>
-          <input style={{height:36}} className="doc-popup-form__input" type="text" name="searchUser" value={searchUser} onChange={handleSearchChange} placeholder="Search by aadhar" autoComplete="off" />
+          <input style={{height:36}} className="doc-popup-form__input" type="text" name="searchUser" value={searchUser} onChange={handleSearchChange} placeholder="Search by Roll Number" autoComplete="off" />
         </div>
         {candidates && candidates.length>0 ? <div className='doc-card__body'>
           <table className='doc-table'>
@@ -184,7 +184,7 @@ function UserPage (props) {
               <tr>
                 <th>Sl No.</th>
                 <th>Name</th>
-                <th>Aadhar</th>
+                <th>Roll Number</th>
                 <th>Answer Sheet</th>
                 <th>Patting Sheet</th>
                 <th>C Form</th>
@@ -198,7 +198,7 @@ function UserPage (props) {
               {candidates.map((candidate, i)=> (<tr key={candidate._id}>
                 <td>{i+1}</td>
                 <td>{candidate.name}</td>
-                <td>{candidate.aadhar}</td>
+                <td>{candidate.rollNumber}</td>
                 <td>
                   {candidate.answerSheetSkipped != undefined && candidate.answerSheetSkipped == false && (candidate.answerSheet && candidate.answerSheet.length>0) && <span className='view-button' style={{cursor:'pointer'}} onClick={()=>openDocument(candidate.answerSheet[0])}>view</span>}
                   {candidate.answerSheetSkipped && candidate.answerSheetSkipped == true && <span>Skipped</span>}
@@ -273,9 +273,9 @@ function UserPage (props) {
                   </div>
                   <div className="doc-popup-form-input-wrap">
                     <label className="doc-popup-form__label">
-                      Aadhar
+                    Roll Number
                     </label>
-                    <input type="text" className="doc-popup-form__input" name="aadhar" value={aadhar} onChange={handleAadharChange} placeholder="Aadhar card no." required autoFocus="" />
+                    <input type="text" className="doc-popup-form__input" name="rollNumber" value={rollNumber} onChange={handleRollNumberChange} placeholder="Roll Number" required autoFocus="" />
                   </div>
                   {showErrorMsg && <p style={{textAlign: 'center',color: '#ff5151', fontSize:14}}>{error}</p>}
                   <div style={{textAlign:'right'}}>

@@ -1,6 +1,21 @@
 const express = require('express');
 var router = express.Router();
 var candidate = require('../controllers/candidateController');
+var multer = require('multer');
+var path = require('path');
+var uniqid = require('uniqid');
+
+var storage =   multer.diskStorage({
+	destination: function (req, file, callback) {
+		callback(null, path.join(__dirname,'../uploads/documents'));
+	},
+	filename: function (req, file, callback) {
+		var filename = uniqid();
+		callback(null, filename);
+	}
+});
+
+var upload = multer({ storage: storage });
 
 router
 	.route('/create')
@@ -12,7 +27,7 @@ router
 
 router
 	.route('/upload')
-		.put(candidate.uploadFile)
+		.put(upload.array('files'), candidate.uploadFile)
 		
 router	
 	.route('/get')

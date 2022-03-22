@@ -9,6 +9,7 @@ var fs= require('fs')
 
 var user = require(path.join(__dirname, '/routes/user'));
 var candidate = require(path.join(__dirname, '/routes/candidate'));
+var trade = require(path.join(__dirname, '/routes/trade'));
 
 db = require(path.join(__dirname,'/config/mongoose'));
 
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/api/user', user);
 app.use('/api/candidate', candidate);
+app.use('/api/trade', trade);
 
 var Storage = multer.diskStorage({
   destination: function (req, file, callback) {

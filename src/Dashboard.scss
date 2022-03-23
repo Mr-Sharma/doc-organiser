@@ -30,6 +30,9 @@ body {
 a {
   text-decoration: none;  
 }
+input[type='file'] {
+  color: transparent;
+}
 
 .left-area {
   transition: all .6s linear;

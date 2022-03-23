@@ -228,6 +228,10 @@ function OperatorUpload (props) {
     } else if(e.target.name==="year"){
       arr.fields[index].year = e.target.value;
     }
+    if(e.target.name==='file' && e.target.files.length<=0){
+      arr.files[index] = {};
+      arr.fields[index].fileName = '';
+    }
     setAdmissionApprovalArray(arr);
   }
   const handleAnswerSheetChange=(e, index)=>{
@@ -241,6 +245,10 @@ function OperatorUpload (props) {
       arr.fields[index].month = e.target.value;
     } else if(e.target.name==="year"){
       arr.fields[index].year = e.target.value;
+    }
+    if(e.target.name==='file' && e.target.files.length<=0){
+      arr.files[index] = {};
+      arr.fields[index].fileName = '';
     }
     setAnswerSheetArray(arr);
   }
@@ -256,6 +264,10 @@ function OperatorUpload (props) {
     } else if(e.target.name==="year"){
       arr.fields[index].year = e.target.value;
     }
+    if(e.target.name==='file' && e.target.files.length<=0){
+      arr.files[index] = {};
+      arr.fields[index].fileName = '';
+    }
     setPackingSlipArray(arr);
   }
   const handleCformChange=(e, index)=>{
@@ -267,6 +279,10 @@ function OperatorUpload (props) {
       arr.fields[index].month = e.target.value;
     } else if(e.target.name==="year"){
       arr.fields[index].year = e.target.value;
+    }
+    if(e.target.name==='file' && e.target.files.length<=0){
+      arr.files[index] = {};
+      arr.fields[index].fileName = '';
     }
     setCformArray(arr);
   }
@@ -282,6 +298,10 @@ function OperatorUpload (props) {
     } else if(e.target.name==="year"){
       arr.fields[index].year = e.target.value;
     }
+    if(e.target.name==='file' && e.target.files.length<=0){
+      arr.files[index] = {};
+      arr.fields[index].fileName = '';
+    }
     setMarkSheetArray(arr);
   }
   const handleCertificateChange=(e, index)=>{
@@ -295,6 +315,10 @@ function OperatorUpload (props) {
       arr.fields[index].month = e.target.value;
     } else if(e.target.name==="year"){
       arr.fields[index].year = e.target.value;
+    }
+    if(e.target.name==='file' && e.target.files.length<=0){
+      arr.files[index] = {};
+      arr.fields[index].fileName = '';
     }
     setCertificateArray(arr);
   }
@@ -591,6 +615,7 @@ function OperatorUpload (props) {
                     <div style={{paddingBottom:10}}>
                       <label className="doc-popup-form__label">File</label>
                       <input id="uploadFile" style={{paddingTop:7}} className="doc-popup-form__input" type="file" disabled={admissionApprovalSkipped == "skipped"} name="file" accept=".pdf" onChange={($event)=>handleAdmissionApprovalChange($event, i)} placeholder="Select File" autoComplete="off" required={admissionApprovalSkipped == "mandatory"} />
+                      {item.fileName && item.fileName!='' && <p style={{margin:'4px 0'}}><b>Selected File: </b>{item.fileName}</p>}
                     </div>
                     <div style={{paddingBottom:10}}>
                       <label className="doc-popup-form__label">Trade</label>
@@ -642,7 +667,7 @@ function OperatorUpload (props) {
                       <label htmlFor="answerSheetSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                     </div>
                   </div>
-                  {answerSheetSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={answerSheetSkipped == "skipped"} onClick={addAdmissionApproval}>
+                  {answerSheetSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={answerSheetSkipped == "skipped"} onClick={addAnswerSheet}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width={24}
@@ -672,6 +697,7 @@ function OperatorUpload (props) {
                     <div style={{paddingBottom:10}}>
                       <label className="doc-popup-form__label">File</label>
                       <input id="uploadFile" style={{paddingTop:7}} className="doc-popup-form__input" type="file" disabled={answerSheetSkipped == "skipped"} name="file" accept=".pdf" onChange={($event)=>handleAnswerSheetChange($event, i)} placeholder="Select File" autoComplete="off" required={answerSheetSkipped == "mandatory"} />
+                      {item.fileName && item.fileName!='' && <p style={{margin:'4px 0'}}><b>Selected File: </b>{item.fileName}</p>}
                     </div>
                     <div style={{paddingBottom:10}}>
                       <label className="doc-popup-form__label">Subject</label>
@@ -723,7 +749,7 @@ function OperatorUpload (props) {
                       <label htmlFor="packingSlipSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                     </div>
                   </div>
-                  {packingSlipSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={packingSlipSkipped == "skipped"} onClick={addAdmissionApproval}>
+                  {packingSlipSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={packingSlipSkipped == "skipped"} onClick={addPackingSlip}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width={24}
@@ -753,6 +779,7 @@ function OperatorUpload (props) {
                     <div style={{paddingBottom:10}}>
                       <label className="doc-popup-form__label">File</label>
                       <input id="uploadFile" style={{paddingTop:7}} className="doc-popup-form__input" type="file" disabled={packingSlipSkipped == "skipped"} name="file" accept=".pdf" onChange={($event)=>handlePackingSlipChange($event, i)} placeholder="Select File" autoComplete="off" required={packingSlipSkipped == "mandatory"}  />
+                      {item.fileName && item.fileName!='' && <p style={{margin:'4px 0'}}><b>Selected File: </b>{item.fileName}</p>}
                     </div>
                     <div style={{paddingBottom:10}}>
                       <label className="doc-popup-form__label">Subject</label>
@@ -804,7 +831,7 @@ function OperatorUpload (props) {
                       <label htmlFor="cformSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                     </div>
                   </div>
-                  {cformSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={cformSkipped == "skipped"} onClick={addAdmissionApproval}>
+                  {cformSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={cformSkipped == "skipped"} onClick={addCform}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width={24}
@@ -834,6 +861,7 @@ function OperatorUpload (props) {
                     <div style={{paddingBottom:10}}>
                       <label className="doc-popup-form__label">File</label>
                       <input id="uploadFile" style={{paddingTop:7}} className="doc-popup-form__input" type="file" disabled={cformSkipped == "skipped"} name="file" accept=".pdf" onChange={($event)=>handleCformChange($event, i)} placeholder="Select File" autoComplete="off" required={cformSkipped == "mandatory"} />
+                      {item.fileName && item.fileName!='' && <p style={{margin:'4px 0'}}><b>Selected File: </b>{item.fileName}</p>}
                     </div>
                     <div style={{display:'flex'}}>
                       <div style={{paddingRight:10}}>
@@ -877,7 +905,7 @@ function OperatorUpload (props) {
                       <label htmlFor="markSheetSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                     </div>
                   </div>
-                  {markSheetSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={markSheetSkipped == "skipped"} onClick={addAdmissionApproval}>
+                  {markSheetSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={markSheetSkipped == "skipped"} onClick={addMarkSheet}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width={24}
@@ -907,6 +935,7 @@ function OperatorUpload (props) {
                     <div style={{paddingBottom:10}}>
                       <label className="doc-popup-form__label">File</label>
                       <input id="uploadFile" style={{paddingTop:7}} className="doc-popup-form__input" type="file" disabled={markSheetSkipped == "skipped"} name="file" accept=".pdf" onChange={($event)=>handleMarkSheetChange($event, i)} placeholder="Select File" autoComplete="off" required={markSheetSkipped == "mandatory"} />
+                      {item.fileName && item.fileName!='' && <p style={{margin:'4px 0'}}><b>Selected File: </b>{item.fileName}</p>}
                     </div>
                     <div style={{paddingBottom:10}}>
                       <label className="doc-popup-form__label">Subject</label>
@@ -958,7 +987,7 @@ function OperatorUpload (props) {
                       <label htmlFor="certificateSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                     </div>
                   </div>
-                  {certificateSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={certificateSkipped == "skipped"} onClick={addAdmissionApproval}>
+                  {certificateSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={certificateSkipped == "skipped"} onClick={addCertificate}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width={24}
@@ -988,6 +1017,7 @@ function OperatorUpload (props) {
                     <div style={{paddingBottom:10}}>
                       <label className="doc-popup-form__label">File</label>
                       <input id="uploadFile" style={{paddingTop:7}} className="doc-popup-form__input" type="file" disabled={certificateSkipped == "skipped"} name="file" accept=".pdf" onChange={($event)=>handleCertificateChange($event, i)} placeholder="Select File" autoComplete="off" required={certificateSkipped == "mandatory"} />
+                      {item.fileName && item.fileName!='' && <p style={{margin:'4px 0'}}><b>Selected File: </b>{item.fileName}</p>}
                     </div>
                     <div style={{paddingBottom:10}}>
                       <label className="doc-popup-form__label">Type</label>

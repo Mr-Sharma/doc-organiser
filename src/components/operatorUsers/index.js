@@ -156,7 +156,7 @@ function OperatorUserPage (props) {
     <div>
       <div className='doc-card'>
         <div className="doc-card__header">
-          <p>Documents</p>
+          <p>Candidates</p>
           <button className='doc-button' onClick={handleCreate}>Create</button>
         </div>
         <div className="doc-card__header" style={{margin:0, padding:'0 16px'}}>

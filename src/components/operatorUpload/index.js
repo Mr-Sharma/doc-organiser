@@ -542,10 +542,10 @@ function OperatorUpload (props) {
               </div>
 
               <div className="doc-popup-form-input-wrap">
-                <div className='' style={{display:'flex', alignItems: 'flex-end', justifyContent:'space-between', margin:'10px 0'}}>
+                <div className='' style={{display:'flex', alignItems: 'center', justifyContent:'space-between', margin:'10px 0'}}>
                   <div>
-                    <label className="doc-popup-form__label" style={{display:'inline'}}>
-                      Admission Approval
+                    <label className="doc-popup-form__label" style={{display:'inline', fontSize:18}}>
+                      Admission Approval:
                     </label>
                     <div style={{display:'inline', margin:'0 12px'}}>
                       <input type="radio" value="mandatory" name="admissionApprovalSkipped" id="admissionApprovalMandatory"
@@ -561,12 +561,27 @@ function OperatorUpload (props) {
                       <label htmlFor="admissionApprovalSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                     </div>
                   </div>
-                  <div>
-                    <button className='doc-button' type='submit' style={{marginLeft:10}} disabled={admissionApprovalSkipped == "skipped"} onClick={addAdmissionApproval}>Add</button> 
-                  </div>
+                 {admissionApprovalSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={admissionApprovalSkipped == "skipped"} onClick={addAdmissionApproval}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-plus-circle"
+                    >
+                      <circle cx={12} cy={12} r={10} />
+                      <line x1={12} y1={8} x2={12} y2={16} />
+                      <line x1={8} y1={12} x2={16} y2={12} />
+                    </svg>
+                  </div>}
                 </div>
                 {admissionApprovalArray.fields && admissionApprovalArray.fields.length>0 && admissionApprovalArray.fields.map((item, i) => {
-                  return (<div style={{border:'1px solid #919191', padding:20, borderRadius:8}} key={i}>
+                  return (<div style={{border:'1px solid #afb6bd', borderRadius:8, padding:20, marginBottom:16}} key={i}>
                     <div className="pull-right" title="Remove" onClick={()=>deleteAdmissionApproval(i)} style={{color:'rgb(251, 104, 104)',cursor:'pointer', textAlign:'right', marginRight:'-12px', marginTop:'-12px'}}>
                       <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" 
                         strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" className="feather feather-trash">
@@ -608,10 +623,10 @@ function OperatorUpload (props) {
               </div>
               
               <div className="doc-popup-form-input-wrap">
-                <div className='' style={{display:'flex', alignItems: 'flex-end', justifyContent:'space-between', margin:'10px 0'}}>
+                <div className='' style={{display:'flex', alignItems: 'center', justifyContent:'space-between', margin:'10px 0'}}>
                   <div>
-                    <label className="doc-popup-form__label" style={{display:'inline'}}>
-                      Answer Sheet
+                    <label className="doc-popup-form__label" style={{display:'inline', fontSize:18}}>
+                      Answer Sheet:
                     </label>
                     <div style={{display:'inline', margin:'0 12px'}}>
                       <input type="radio" value="mandatory" name="answerSheetSkipped" id="answerSheetMandatory"
@@ -627,12 +642,27 @@ function OperatorUpload (props) {
                       <label htmlFor="answerSheetSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                     </div>
                   </div>
-                  <div>
-                    <button className='doc-button' type='submit' style={{marginLeft:10}} disabled={answerSheetSkipped == "skipped"} onClick={addAnswerSheet}>Add</button> 
-                  </div>
+                  {answerSheetSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={answerSheetSkipped == "skipped"} onClick={addAdmissionApproval}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-plus-circle"
+                    >
+                      <circle cx={12} cy={12} r={10} />
+                      <line x1={12} y1={8} x2={12} y2={16} />
+                      <line x1={8} y1={12} x2={16} y2={12} />
+                    </svg>
+                  </div>}
                 </div>
                 {answerSheetArray.fields && answerSheetArray.fields.length>0 && answerSheetArray.fields.map((item, i) => {
-                  return (<div style={{border:'1px solid #919191', padding:20, borderRadius:8}} key={i}>
+                  return (<div style={{border:'1px solid #afb6bd', borderRadius:8, padding:20, marginBottom:16}} key={i}>
                     <div className="pull-right" title="Remove" onClick={()=>deleteAnswerSheet(i)} style={{color:'rgb(251, 104, 104)',cursor:'pointer', textAlign:'right', marginRight:'-12px', marginTop:'-12px'}}>
                       <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" 
                         strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" className="feather feather-trash">
@@ -674,10 +704,10 @@ function OperatorUpload (props) {
               </div>
 
               <div className="doc-popup-form-input-wrap">
-                <div className='' style={{display:'flex', alignItems: 'flex-end', justifyContent:'space-between', margin:'10px 0'}}>
+                <div className='' style={{display:'flex', alignItems: 'center', justifyContent:'space-between', margin:'10px 0'}}>
                   <div>
-                    <label className="doc-popup-form__label" style={{display:'inline'}}>
-                      Packing Slip
+                    <label className="doc-popup-form__label" style={{display:'inline', fontSize:18}}>
+                      Packing Slip:
                     </label>
                     <div style={{display:'inline', margin:'0 12px'}}>
                       <input type="radio" value="mandatory" name="packingSlipSkipped" id="packingSlipMandatory"
@@ -693,12 +723,27 @@ function OperatorUpload (props) {
                       <label htmlFor="packingSlipSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                     </div>
                   </div>
-                  <div>
-                    <button className='doc-button' type='submit' style={{marginLeft:10}} onClick={addPackingSlip} disabled={packingSlipSkipped == "skipped"}>Add</button> 
-                  </div>
+                  {packingSlipSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={packingSlipSkipped == "skipped"} onClick={addAdmissionApproval}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-plus-circle"
+                    >
+                      <circle cx={12} cy={12} r={10} />
+                      <line x1={12} y1={8} x2={12} y2={16} />
+                      <line x1={8} y1={12} x2={16} y2={12} />
+                    </svg>
+                  </div>}
                 </div>
                 {packingSlipArray.fields && packingSlipArray.fields.length>0 && packingSlipArray.fields.map((item, i) => {
-                  return (<div key={i} style={{border:'1px solid #919191', padding:20, borderRadius:8}}>
+                  return (<div key={i} style={{border:'1px solid #afb6bd', borderRadius:8, padding:20, marginBottom:16}}>
                     <div className="pull-right" title="Remove" onClick={()=>deletePackingSlip(i)} style={{color:'rgb(251, 104, 104)',cursor:'pointer', textAlign:'right', marginRight:'-12px', marginTop:'-12px'}}>
                       <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" 
                         strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" className="feather feather-trash">
@@ -740,10 +785,10 @@ function OperatorUpload (props) {
               </div>
 
               <div className="doc-popup-form-input-wrap">
-                <div className='' style={{display:'flex', alignItems: 'flex-end', justifyContent:'space-between', margin:'10px 0'}}>
+                <div className='' style={{display:'flex', alignItems: 'center', justifyContent:'space-between', margin:'10px 0'}}>
                   <div>
-                    <label className="doc-popup-form__label" style={{display:'inline'}}>
-                      C Form
+                    <label className="doc-popup-form__label" style={{display:'inline', fontSize:18}}>
+                      C Form:
                     </label>
                     <div style={{display:'inline', margin:'0 12px'}}>
                       <input type="radio" value="mandatory" name="cformSkipped" id="cformMandatory"
@@ -759,12 +804,27 @@ function OperatorUpload (props) {
                       <label htmlFor="cformSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                     </div>
                   </div>
-                  <div>
-                    <button className='doc-button' type='submit' style={{marginLeft:10}} onClick={addCform} disabled={cformSkipped == "skipped"}>Add</button> 
-                  </div>
+                  {cformSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={cformSkipped == "skipped"} onClick={addAdmissionApproval}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-plus-circle"
+                    >
+                      <circle cx={12} cy={12} r={10} />
+                      <line x1={12} y1={8} x2={12} y2={16} />
+                      <line x1={8} y1={12} x2={16} y2={12} />
+                    </svg>
+                  </div>}
                 </div>
                 {cformArray.fields && cformArray.fields.length>0 && cformArray.fields.map((item, i) => {
-                  return (<div key={i} style={{border:'1px solid #919191', padding:20, borderRadius:8}}>
+                  return (<div key={i} style={{border:'1px solid #afb6bd', borderRadius:8, padding:20, marginBottom:16}}>
                     <div className="pull-right" title="Remove" onClick={()=>deleteCform(i)} style={{color:'rgb(251, 104, 104)',cursor:'pointer', textAlign:'right', marginRight:'-12px', marginTop:'-12px'}}>
                       <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" 
                         strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" className="feather feather-trash">
@@ -798,10 +858,10 @@ function OperatorUpload (props) {
               </div>
 
               <div className="doc-popup-form-input-wrap">
-                <div className='' style={{display:'flex', alignItems: 'flex-end', justifyContent:'space-between', margin:'10px 0'}}>
+                <div className='' style={{display:'flex', alignItems: 'center', justifyContent:'space-between', margin:'10px 0'}}>
                   <div>
-                    <label className="doc-popup-form__label" style={{display:'inline'}}>
-                      Mark Sheet
+                    <label className="doc-popup-form__label" style={{display:'inline', fontSize:18}}>
+                      Mark Sheet:
                     </label>
                     <div style={{display:'inline', margin:'0 12px'}}>
                       <input type="radio" value="mandatory" name="markSheetSkipped" id="markSheetMandatory"
@@ -817,12 +877,27 @@ function OperatorUpload (props) {
                       <label htmlFor="markSheetSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                     </div>
                   </div>
-                  <div>
-                    <button className='doc-button' type='submit' style={{marginLeft:10}} onClick={addMarkSheet} disabled={markSheetSkipped == "skipped"}>Add</button> 
-                  </div>
+                  {markSheetSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={markSheetSkipped == "skipped"} onClick={addAdmissionApproval}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-plus-circle"
+                    >
+                      <circle cx={12} cy={12} r={10} />
+                      <line x1={12} y1={8} x2={12} y2={16} />
+                      <line x1={8} y1={12} x2={16} y2={12} />
+                    </svg>
+                  </div>}
                 </div>
                 {markSheetArray.fields && markSheetArray.fields.length>0 && markSheetArray.fields.map((item, i) => {
-                  return (<div key={i} style={{border:'1px solid #919191', padding:20, borderRadius:8}}>
+                  return (<div key={i} style={{border:'1px solid #afb6bd', borderRadius:8, padding:20, marginBottom:16}}>
                     <div className="pull-right" title="Remove" onClick={()=>deleteMarkSheet(i)} style={{color:'rgb(251, 104, 104)',cursor:'pointer', textAlign:'right', marginRight:'-12px', marginTop:'-12px'}}>
                       <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" 
                         strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" className="feather feather-trash">
@@ -864,10 +939,10 @@ function OperatorUpload (props) {
               </div>
 
               <div className="doc-popup-form-input-wrap">
-                <div className='' style={{display:'flex', alignItems: 'flex-end', justifyContent:'space-between', margin:'10px 0'}}>
+                <div className='' style={{display:'flex', alignItems: 'center', justifyContent:'space-between', margin:'10px 0'}}>
                   <div>
-                    <label className="doc-popup-form__label" style={{display:'inline'}}>
-                      Certificate
+                    <label className="doc-popup-form__label" style={{display:'inline', fontSize:18}}>
+                      Certificate:
                     </label>
                     <div style={{display:'inline', margin:'0 12px'}}>
                       <input type="radio" value="mandatory" name="certificateSkipped" id="certificateMandatory"
@@ -883,12 +958,27 @@ function OperatorUpload (props) {
                       <label htmlFor="certificateSkipped" style={{fontSize:16, fontWeight: 400}}>Skip</label>
                     </div>
                   </div>
-                  <div>
-                    <button className='doc-button' type='submit' style={{marginLeft:10}} onClick={addCertificate} disabled={certificateSkipped == "skipped"}>Add</button> 
-                  </div>
+                  {certificateSkipped == "mandatory" && <div style={{marginLeft:10, cursor:'pointer'}} disabled={certificateSkipped == "skipped"} onClick={addAdmissionApproval}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-plus-circle"
+                    >
+                      <circle cx={12} cy={12} r={10} />
+                      <line x1={12} y1={8} x2={12} y2={16} />
+                      <line x1={8} y1={12} x2={16} y2={12} />
+                    </svg>
+                  </div>}
                 </div>
                 {certificateArray.fields && certificateArray.fields.length>0 && certificateArray.fields.map((item, i) => {
-                  return (<div key={i} style={{border:'1px solid #919191', padding:20, borderRadius:8}}>
+                  return (<div key={i} style={{border:'1px solid #afb6bd', borderRadius:8, padding:20, marginBottom:16}}>
                     <div className="pull-right" title="Remove" onClick={()=>deleteCertificate(i)} style={{color:'rgb(251, 104, 104)',cursor:'pointer', textAlign:'right', marginRight:'-12px', marginTop:'-12px'}}>
                       <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" 
                         strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" className="feather feather-trash">
@@ -928,8 +1018,8 @@ function OperatorUpload (props) {
                   </div>)
                 })}
               </div>
-              <div style={{textAlign:'right'}}>
-                <button className='doc-button' type='submit' style={{marginLeft:10}}>Create</button> 
+              <div style={{textAlign:'right', borderTop:'1px solid #959fb0', paddingTop:16}}>
+                <button className='doc-button' type='submit' style={{marginLeft:10, fontSize:16}}>Submit</button> 
               </div>
             </div>
           </form>

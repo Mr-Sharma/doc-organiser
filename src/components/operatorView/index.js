@@ -21,7 +21,6 @@ function OperatorViewPage (props) {
     const selectedViewCandidate =  JSON.parse(sessionStorage.getItem('selectedViewCandidate'));
     setViewTitle(selectedViewCandidate.name || 'View Document');
     const selectedViewDocumentType =  JSON.parse(sessionStorage.getItem('selectedViewDocumentType'));
-    console.log('selectedViewDocumentType', selectedViewDocumentType)
     setViewDocumentType(selectedViewDocumentType || '');
   }, []);
 
@@ -37,7 +36,6 @@ function OperatorViewPage (props) {
 
 
   const openDocument = (document) => {
-    console.log("document", document)
     setSelectedDocument(document);
     openPopup()
     // setNumPages(null);

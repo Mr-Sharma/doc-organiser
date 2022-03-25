@@ -1,5 +1,6 @@
 
 var Candidate = require('./candidate');
+var Log = require('./log');
 var multer  =   require('multer');
 var path = require('path');
 var uniqid = require('uniqid');
@@ -180,13 +181,36 @@ function uploadFile(data,callback){
   }
   Candidate.findOneAndUpdate({_id: data.body._id}, {$set: obj}, {new: true}, function(err,res) {
     if(err) {
-      callback(err,null)
+      callback(err,null);
     } else {
+      createLog(data.body._id, obj);
       callback(null,res)
     }
   })
 }
 
+function createLog(candidateId, obj) {
+  Candidate.findOne({_id:candidateId}).
+  exec(function(err, respose) {
+      var data = {};
+      data.name = respose.name;
+      data.rollNumber = respose.rollNumber;
+      data.candidateId = candidateId;
+      data.updatedBy = obj.updatedBy;
+      var keys = Object.keys(obj);
+      var document = null
+      for(var i = 0; i < keys.length;i++){
+        if(keys[i].includes('Skipped')) {
+          document = keys[i].replace('Skipped','');
+          type = keys[i];
+        }
+      }
+      data.data = obj[document] || [];
+      data.document = document;
+      data.skipped = obj[type];
+      Log.create(data);
+  });
+}
 function getAll(callback){
   Candidate.find().
   exec(function(err, res) {

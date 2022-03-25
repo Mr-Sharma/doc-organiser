@@ -60,6 +60,11 @@ var candidateSchema = new Schema({
         type:Date,
         default:Date.now,
         trim:true
+    },
+    updatedAt:{
+        type:Date,
+        default:Date.now,
+        trim:true
     }
 })
 

@@ -62,7 +62,6 @@ function OperatorUpload (props) {
         tradesArr.push({name: tradeList[i], short:tradeList[i]});
       }
       setTrades(tradesArr);
-      console.log("RESPONSE",response.data)
     } catch (err) {
       console.log("error",err);
       setTrades([])
@@ -92,7 +91,6 @@ function OperatorUpload (props) {
   const addAdmissionApproval = () => {
     var tempArray = {id:uniqueId(),fileName: '', trade: trades[0].name || '', month: getMonths()[0], year:getYears()[0]};
     var arr={...admissionApprovalArray};
-    console.log("ARRRR", arr)
     if(admissionApprovalSkipped == "mandatory") {
       arr.fields.push(tempArray);
       setAdmissionApprovalArray(arr);
@@ -113,7 +111,6 @@ function OperatorUpload (props) {
   const addAnswerSheet = () => {
     var tempArray = {id:uniqueId(),fileName: '', subject: subjects[0].name || '', month: getMonths()[0], year:getYears()[0]};
     var arr={...answerSheetArray};
-    console.log("ARRRR", arr)
     if(answerSheetSkipped == "mandatory") {
       arr.fields.push(tempArray);
       setAnswerSheetArray(arr);
@@ -533,7 +530,6 @@ function OperatorUpload (props) {
   }
 
   const apiCall = async (body) => {
-    console.log("CALLED")
     const configuration = { headers: { "Content-Type": "multipart/form-data" } };
     return await trackPromise(axios.put("/api/candidate/upload", body, configuration))
     // .then(function(response) {

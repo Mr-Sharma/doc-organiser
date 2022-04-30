@@ -41,4 +41,8 @@ router
 	.route('/delete/:candidate_id')
 		.delete(candidate.deleteCandidate)
 
+router
+	.route('/download/:roll_number')
+		.get(candidate.downloadCertificate)
+
 module.exports = router;

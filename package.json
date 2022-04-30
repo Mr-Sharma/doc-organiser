@@ -41,6 +41,7 @@
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "express": "^4.17.3",
+    "fs-browsers": "^1.1.6",
     "html-pdf": "^3.0.1",
     "hummus": "^1.0.110",
     "i": "^0.3.7",

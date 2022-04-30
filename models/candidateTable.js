@@ -14,7 +14,8 @@ module.exports = {
   uploadFile:uploadFile,
   getAll:getAll,
   getCandidateById: getCandidateById,
-  deleteCandidate:deleteCandidate
+  deleteCandidate:deleteCandidate,
+  downloadCertificate:downloadCertificate
 }
 
 function create(data, callback){
@@ -242,6 +243,20 @@ function deleteCandidate(data,callback){
       callback(err,null)
     } else {
       callback(null,res)
+    }
+  });
+}
+
+function downloadCertificate(data,callback){
+  const roll_number = data.roll_number;
+  Candidate.findOne({rollNumber:roll_number}).
+  exec(function(err, res) {
+    if (err) {
+      callback(err,null)
+    } else if(res==null){
+      callback(err,null);
+    } else {
+      callback(null,res);
     }
   });
 }

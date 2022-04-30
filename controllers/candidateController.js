@@ -74,3 +74,18 @@ module.exports.deleteCandidate = function(req, res) {
 		}
 	});
 }
+
+//student side
+module.exports.downloadCertificate = function(req, res) {
+	var data={}
+	data=req.params;
+	candidate.downloadCertificate(data,function(err,msg){
+		if(err){
+			res.status(constants.FOUR_HUNDRED).json({success:false,message:err});
+		}else if(msg && msg.certificate && msg.certificate.length>0) {
+			res.status(constants.TWO_HUNDRED).json({success:true,message:msg.certificate});
+		} else {
+			res.status(constants.FOUR_HUNDRED).json({success:false,message:null});
+		}
+	});
+}

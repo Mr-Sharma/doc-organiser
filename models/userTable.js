@@ -7,6 +7,7 @@ module.exports = {
   fetchAllUsers:fetchAllUsers,
   fetchAllUsersByType:fetchAllUsersByType,
   fetchUser:fetchUser,
+  fetchUserByPhone:fetchUserByPhone,
   deleteUser:deleteUser,
   updateUser:updateUser,
   checkUserPhoneExists:checkUserPhoneExists,
@@ -22,7 +23,7 @@ function createUser(data,callback){
           console.log("ERROR",err)
           callback(err,null)
         }else{
-          callback(null,'user created successfully')
+          callback(null, res)
         }
       })
     } else {
@@ -77,6 +78,18 @@ function fetchUser(data, callback){
       callback(null, {userExists:false,res})
     } else {
       callback(null, {userExists:true,res})
+    }
+  })
+}
+
+function fetchUserByPhone(data, callback){
+  User.findOne({phoneNumber:data.phoneNumber}, function(err, res) {
+    if (err) {
+      callback(err,null)
+    } else if(res==null) {
+      callback(null, res)
+    } else {
+      callback(null, res)
     }
   })
 }

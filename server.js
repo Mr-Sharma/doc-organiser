@@ -2,7 +2,7 @@ const express = require('express')
 const app = express();
 var cors = require('cors');
 var path = require('path');
-const port = 5000;
+const port = 6000;
 var compression = require('compression');
 var multer  = require('multer')
 var fs= require('fs')
@@ -10,6 +10,7 @@ var fs= require('fs')
 var user = require(path.join(__dirname, '/routes/user'));
 var candidate = require(path.join(__dirname, '/routes/candidate'));
 var trade = require(path.join(__dirname, '/routes/trade'));
+var company = require(path.join(__dirname, '/routes/company'));
 
 db = require(path.join(__dirname,'/config/mongoose'));
 
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use('/api/user', user);
 app.use('/api/candidate', candidate);
 app.use('/api/trade', trade);
+app.use('/api/company', company);
 
 var Storage = multer.diskStorage({
   destination: function (req, file, callback) {

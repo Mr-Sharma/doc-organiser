@@ -81,6 +81,17 @@ module.exports.fetchUser = function(req, res) {
 	});
 }
 
+module.exports.fetchUserByPhone = function(req, res) {
+	var data=req.params;
+	user.fetchUserByPhone(data,function(err,msg){
+		if(err){
+			res.status(constants.FOUR_HUNDRED).json({success:false,message:err});
+		}else{
+			res.status(constants.TWO_HUNDRED).json({success:true,message:msg});
+		}
+	});
+}
+
 module.exports.deleteUser = function(req, res) {
 	const _id =req.params._id;
 	user.deleteUser(_id,function(err,msg){
@@ -144,6 +155,19 @@ module.exports.verifyOtpThroughPhoneNew = function(req,res){
         if(err){
             res.status(constants.FOUR_HUNDRED).json({success:false,message:err});
         }else{
+            res.status(constants.TWO_HUNDRED).json({success:true,message:response});
+        }
+    });
+}
+
+module.exports.verifyOtpThroughPhoneForRegister = function(req,res){
+    var data=req.body;
+    otpController.verifyOtpThroughPhoneForRegister(data,function(err,response){
+        if(err){
+            res.status(constants.FOUR_HUNDRED).json({success:false,message:err});
+        }else if(response==null) {
+            res.status(constants.FOUR_HUNDRED).json({success:true,message:'Invalid'});
+        } else {
             res.status(constants.TWO_HUNDRED).json({success:true,message:response});
         }
     });

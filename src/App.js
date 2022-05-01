@@ -4,7 +4,8 @@ import "./App.css";
 // import LoginPage from "./components/login";
 // import AdminDashboard from "./admin";
 // import OperatorDashboard from "./operator";
-import StudentDashboard from "./student";
+import CompanyDashboard from "./company";
+import CompanyLoginPage from "./components/companyLogin";
 import {BrowserRouter as Router, Route,Routes} from "react-router-dom";
 
 
@@ -13,12 +14,16 @@ class App extends Component {
     return (
       <Router>
           <Routes>
-            <Route exact path="/" element={<StudentDashboard/>} />
+            {/* <Route exact path="/" element={<StudentDashboard/>} /> */}
             {/* <Route exact path="/" element={<LoginPage/>} />
             <Route exact path="login" element={<LoginPage/>} />
             <Route exact path="admin/*" element={<AdminDashboard/>} />
             <Route exact path="operator/*" element={<OperatorDashboard/>} /> 
-            <Route path="*" element={<h1>Page not Found!!!</h1>} />                    */}
+            <Route path="*" element={<h1>Page not Found!!!</h1>} />*/}
+            <Route exact path="/" element={<CompanyLoginPage/>} />
+            <Route exact path="/login" element={<CompanyLoginPage/>} />
+            <Route exact path="/company/*" element={<CompanyDashboard/>} />
+            <Route path="*" element={<h1>Page not Found!!!</h1>} />
           </Routes>
       </Router>
     );

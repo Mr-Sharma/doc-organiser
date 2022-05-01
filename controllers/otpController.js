@@ -10,7 +10,8 @@ module.exports = {
    verifyOtpThroughEmail:verifyOtpThroughEmail,
    sendOtpNew:sendOtpNew,
    resendOtpThroughPhoneNew:resendOtpThroughPhoneNew,
-   verifyOtpThroughPhoneNew:verifyOtpThroughPhoneNew
+   verifyOtpThroughPhoneNew:verifyOtpThroughPhoneNew,
+   verifyOtpThroughPhoneForRegister:verifyOtpThroughPhoneForRegister
 }
 
 
@@ -131,6 +132,16 @@ function resendOtpThroughPhoneNew(data,callback) {
 
 function verifyOtpThroughPhoneNew(data,callback) {
 	otpCollection.verifyOtpThroughPhoneNew(data, function(err,response){
+	  if(err){
+		  callback(err, null)
+	  }else{
+		  callback(null, response)
+	  }
+	})
+}
+
+function verifyOtpThroughPhoneForRegister(data,callback) {
+	otpCollection.verifyOtpThroughPhoneForRegister(data, function(err,response){
 	  if(err){
 		  callback(err, null)
 	  }else{

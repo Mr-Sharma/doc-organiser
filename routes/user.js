@@ -22,6 +22,10 @@ router
 router	
 	.route('/fetchUser/:username')
 			.get(userController.fetchUser)
+
+router	
+	.route('/fetchUser/phone/:phoneNumber')
+			.get(userController.fetchUserByPhone)
 router	
 	.route('/delete/:_id')
 		.delete(userController.deleteUser)
@@ -41,5 +45,9 @@ router
 router
 	.route('/phone/verify')
       	.put(userController.verifyOtpThroughPhoneNew)
+
+router
+	.route('/phone/register/verify')
+		.put(userController.verifyOtpThroughPhoneForRegister)
 
 module.exports = router;

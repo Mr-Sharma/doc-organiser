@@ -14,7 +14,8 @@ module.exports = {
  verifyEmailId:verifyEmailId,
  storeOtp:storeOtp,
  verifyPhoneNumber:verifyPhoneNumber,
- verifyOtpThroughPhoneNew:verifyOtpThroughPhoneNew
+ verifyOtpThroughPhoneNew:verifyOtpThroughPhoneNew,
+ verifyOtpThroughPhoneForRegister:verifyOtpThroughPhoneForRegister
 }
 
 function generateOtp(data,callback){
@@ -150,6 +151,21 @@ function verifyOtpThroughPhoneNew(data,callback){
         }
         else{
             callback("otp not found!",null)
+        }
+    })
+}
+
+function verifyOtpThroughPhoneForRegister(data,callback){
+    Otp
+    .findOne({"phoneNumber":data.phoneNumber,otp:data.otp})
+    .exec(function(err, res) {
+        if(err){
+            callback(err,null)
+        }
+        else if(res == null){
+            callback(err,null)
+        } else {
+            callback(null,res)
         }
     })
 }
